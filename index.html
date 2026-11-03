@@ -160,7 +160,7 @@
       </ul>
       <p class="tw-note">North Carolina is the only wave-seat flip on the map. Every other flip is a tsunami seat: Maine, Ohio, Texas, Iowa, Kansas, Alaska, South Carolina, Florida, Nebraska and Louisiana.</p>
       <div class="tw-chips" id="s-flipchips"></div>
-      <p class="tw-line"><b>The Senate read:</b> 54 or more seats is a tsunami, a 51 to 53 seat majority is a wave, and 50 or fewer is short.</p>
+      <p class="tw-line"><b>The Senate read:</b> 53 or more seats, your group's hope, is a tsunami. A 51 or 52 seat majority is a wave. 50 or fewer is short.</p>
       <div class="tw-figs">
         <div class="tw-fig"><span class="tw-fig-label">Democratic seats, called or leading</span><b class="tw-big" id="s-now">—</b><span class="tw-fig-word" id="s-now-tier">—</span></div>
         <div class="tw-fig"><span class="tw-fig-label">Called so far</span><b class="tw-big" id="s-called">—</b><span class="tw-fig-word" id="s-called-tier">—</span></div>
@@ -260,7 +260,7 @@
     <h2>How the lines are set</h2>
     <p>Wave seats are the battlegrounds a good Democratic night wins. The wave line is a Democratic win. The tsunami line is 6 points past the final poll or the analysts' marker, about the size of Marquette's biggest final-poll miss since 2016. That line is our own working line, not a forecaster's.</p>
     <p>Tsunami seats are the ones a good night shouldn't win: seats Trump carried comfortably, statewide races in Trump +10 states, and Collins's Maine. A Democrat within 5 is a wave sign and a Democratic win is a tsunami sign, following the early-race guides from NPR and Daily Kos.</p>
-    <p>The Senate read counts Democratic seats: 34 not up this year plus the races called for them or led by them. 54 or more is a tsunami, a 51 to 53 seat majority is a wave, and 50 or fewer is short.</p>
+    <p>The Senate read counts Democratic seats: 34 not up this year plus the races called for them or led by them. 53 or more is a tsunami: holding every Democratic seat and North Carolina gets to 48, and the last 5 have to come from the 10 Senate tsunami seats, half of them. A 51 or 52 seat majority is a wave, and 50 or fewer is short.</p>
     <p>The counting read uses every race with votes in, so it comes first and can drift. The called read uses only races a decision desk has called, so it comes later and doesn't move.</p>
   </section>
 
@@ -402,7 +402,7 @@
     });
   }
 
-  // The race to 54: Democratic seats fill from the left, Republican calls from the right, uncalled races in between.
+  // The race to a tsunami: Democratic seats fill from the left, Republican calls from the right, uncalled races in between.
   function drawSeatBar(s) {
     const el = document.getElementById('seatbar');
     el.replaceChildren();
@@ -410,7 +410,7 @@
     const W = Math.max(280, el.clientWidth || 600), H = 74, left = 4, right = 4, barY = 22, barH = 20;
     const x = d3.scaleLinear([lo, hi], [left, W - right]);
     const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-      .attr('role', 'img').attr('aria-label', 'Democratic Senate seats called and leading against 51, 53 and 54');
+      .attr('role', 'img').attr('aria-label', `Democratic Senate seats called and leading against a ${s.waveAt}-seat majority and the ${s.tsunamiAt}-seat tsunami mark`);
     const segs = [
       [s.calledD, 'var(--dem)', 1], [s.leadD, 'var(--dem)', 0.35], [s.waiting, 'var(--grid)', 1],
       [s.ind, 'var(--ind)', 0.5], [s.leadR, 'var(--rep)', 0.35], [s.calledR, 'var(--rep)', 1]
@@ -424,8 +424,12 @@
     });
     svg.append('rect').attr('x', left).attr('width', W - left - right).attr('y', barY).attr('height', barH).attr('rx', 3)
       .style('fill', 'none').style('stroke', 'var(--line)');
-    // 51 labels to the left of its mark, 54 to the right, 53 above, so the three never collide.
-    [[s.waveAt, 'Majority 51', 'below', 'end'], [s.target, 'Hope 53', 'above', 'middle'], [s.tsunamiAt, 'Tsunami 54', 'below', 'start']].forEach(([v, label, pos, anchor]) => {
+    // The majority labels to the left of its mark and the tsunami mark to the right, so they never collide;
+    // the hope gets its own mark above only when it differs from the tsunami mark.
+    const marks = [[s.waveAt, `Majority ${s.waveAt}`, 'below', 'end'],
+      [s.tsunamiAt, s.target === s.tsunamiAt ? `Tsunami ${s.tsunamiAt}, the hope` : `Tsunami ${s.tsunamiAt}`, 'below', 'start']];
+    if (s.target !== s.tsunamiAt) marks.push([s.target, `Hope ${s.target}`, 'above', 'middle']);
+    marks.forEach(([v, label, pos, anchor]) => {
       if (v < lo || v > hi) return;
       const xv = x(v - 0.5);
       svg.append('line').attr('x1', xv).attr('x2', xv).attr('y1', barY - 4).attr('y2', barY + barH + 4)
