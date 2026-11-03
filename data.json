@@ -17,7 +17,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Zach Dembo",
-   "rep": "Ralph Alvarado"
+   "rep": "Ralph Alvarado",
+   "rating": "Toss-up"
   },
   {
    "id": "IN-5",
@@ -35,7 +36,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "J.D. Ford",
-   "rep": "Victoria Spartz"
+   "rep": "Victoria Spartz",
+   "rating": "Likely R"
   },
   {
    "id": "VA-2",
@@ -53,7 +55,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Elaine Luria",
-   "rep": "Jen Kiggans"
+   "rep": "Jen Kiggans",
+   "rating": "Lean D"
   },
   {
    "id": "FL-14",
@@ -317,7 +320,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Don Davis",
-   "rep": "Laurie Buckhout"
+   "rep": "Laurie Buckhout",
+   "rating": "Toss-up"
   },
   {
    "id": "NC-11",
@@ -335,7 +339,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Jamie Ager",
-   "rep": "Jennifer Balkcom"
+   "rep": "Jennifer Balkcom",
+   "rating": "Lean D"
   },
   {
    "id": "OH-SEN",
@@ -378,7 +383,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Matt Dunlap",
-   "rep": "Paul LePage"
+   "rep": "Paul LePage",
+   "rating": "Lean R"
   },
   {
    "id": "KS-SEN",
@@ -617,7 +623,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "David Crowley",
-   "rep": "Tom Tiffany"
+   "rep": "Tom Tiffany",
+   "rating": "Lean D"
   },
   {
    "id": "WI-3",
@@ -635,7 +642,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Rebecca Cooke",
-   "rep": "Derrick Van Orden"
+   "rep": "Derrick Van Orden",
+   "rating": "Lean D"
   },
   {
    "id": "WI-1",
@@ -653,7 +661,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Mitchell Berman",
-   "rep": "Bryan Steil"
+   "rep": "Bryan Steil",
+   "rating": "Lean R"
   },
   {
    "id": "CO-8",
@@ -671,7 +680,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Manny Rutinel",
-   "rep": "Gabe Evans"
+   "rep": "Gabe Evans",
+   "rating": "Lean D"
   },
   {
    "id": "CO-5",
@@ -689,7 +699,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Jessica Killin",
-   "rep": "Jeff Crank"
+   "rep": "Jeff Crank",
+   "rating": "Lean R"
   },
   {
    "id": "IA-SEN",
@@ -848,7 +859,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Teresa Benitez-Thompson",
-   "rep": "David Flippo"
+   "rep": "David Flippo",
+   "rating": "Lean R"
   },
   {
    "id": "CA-22",
@@ -866,7 +878,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "Randy Villegas",
-   "rep": "David Valadao"
+   "rep": "David Valadao",
+   "rating": "Toss-up"
   },
   {
    "id": "AK-SEN",

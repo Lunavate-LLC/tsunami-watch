@@ -90,7 +90,22 @@
   .tw-st-close::before { content: "\2194"; }
   .tw-wi { display: grid; gap: 8px; min-width: 0; align-content: start; }
   .tw-wi-stack { display: grid; gap: 20px; }
-  .tw-next { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .tw-sched { display: grid; gap: 8px; }
+  .tw-sched details { border: 1px solid var(--line); border-radius: 8px; }
+  .tw-sched summary { cursor: pointer; padding: 10px 12px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; list-style: none; min-height: 44px; }
+  .tw-sched summary::-webkit-details-marker { display: none; }
+  .tw-sched summary::before { content: "\25B8"; color: var(--muted); }
+  .tw-sched details[open] summary::before { content: "\25BE"; }
+  .tw-sched summary b { font-size: 1.05rem; }
+  .tw-sched-sum { color: var(--muted); font-size: .875rem; }
+  .tw-sched-body { padding: 0 12px 12px; display: grid; gap: 10px; }
+  .tw-sched-note { margin: 0; font-size: .9rem; }
+  .tw-race { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+  .tw-race-name { font-weight: 600; }
+  .tw-race-meta, .tw-race-takes { color: var(--muted); font-size: .875rem; grid-column: 1; }
+  .tw-race-now { grid-column: 2; grid-row: 1 / span 3; align-self: center; text-align: right; font-size: .875rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tw-race-now b { display: block; font-size: 1rem; }
+  .tw-tag { display: inline-block; font-size: .75rem; font-weight: 600; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: 1px; color: #fff; }
   .tw-tip { position: absolute; pointer-events: none; background: var(--popover); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 6px 10px; font-size: .8rem; max-width: 17rem; z-index: 2; line-height: 1.45; }
   .tw-tip-head { color: var(--muted); }
   .tw-scroll { overflow-x: auto; }
@@ -148,6 +163,12 @@
       <li><i class="tw-swatch" data-swatch="short"></i>Short of the wave</li>
       <li><i class="tw-swatch" data-swatch="waiting"></i>No result yet</li>
     </ul>
+  </section>
+
+  <section class="tw-card" id="schedule-card">
+    <h2>Tonight, hour by hour</h2>
+    <p class="tw-note">Every bellwether by poll close (Central), with what each sign takes. The current and next poll closes stay open; tap any time to open or close it.</p>
+    <div class="tw-sched" id="schedule"></div>
   </section>
 
   <section class="tw-grid2">
@@ -213,17 +234,10 @@
 
   <section class="tw-grid2">
     <section class="tw-card">
-      <h2>Next to report</h2>
-      <p class="tw-note">The next poll close with bellwethers still waiting, and what each sign takes there.</p>
-      <ul class="tw-next" id="nextup"></ul>
-    </section>
-    <section class="tw-card">
       <h2>Signs through the night</h2>
       <p class="tw-note">How many bellwethers were tsunami signs, wave signs and short at each sample.</p>
       <div class="tw-chart" id="hist"></div>
     </section>
-  </section>
-
   <section class="tw-card">
     <h2>By region</h2>
     <p class="tw-note">How each part of the country is landing, with Wisconsin and Minnesota split out. The East Coast, Kentucky and Indiana report first; Texas, the Midwest and Colorado follow, and the West comes last, with California counting slowly.</p>
@@ -233,6 +247,7 @@
         <tbody id="regions"></tbody>
       </table>
     </div>
+  </section>
   </section>
 
   <section class="tw-card">
@@ -509,18 +524,76 @@
     });
   }
 
-  function drawNext(R) {
-    const ul = document.getElementById('nextup');
-    ul.replaceChildren();
-    const add = (t, bold) => { const li = document.createElement('li'); if (bold) { const b = document.createElement('b'); b.textContent = t; li.appendChild(b); } else li.textContent = t; ul.appendChild(li); };
-    const waiting = R.bw.filter((r) => num(r.dem_margin) === null);
-    if (!waiting.length) { add('Every bellwether has results.'); return; }
-    const first = d3.min(waiting, (r) => minutesOf(r.closes_ct));
-    add(`${waiting.find((r) => minutesOf(r.closes_ct) === first).closes_ct} Central`, true);
+  const CLOSE_NOTES = {
+    '5:00 pm': 'Most of Kentucky and Indiana close. Both count fast; first numbers usually come around 5:15 to 5:30.',
+    '6:00 pm': 'The big East Coast drop: Florida, Georgia, South Carolina, Virginia and the first New Hampshire towns, plus the rest of Kentucky and Indiana. Virginia’s 1st and 2nd are the first wave seats to report.',
+    '6:30 pm': 'North Carolina and Ohio: Cooper’s open-seat race and Sherrod Brown’s bid to return to the Senate.',
+    '7:00 pm': 'Maine, Michigan, Pennsylvania, New Jersey, and most of Texas and Kansas. Maine can go to ranked-choice counting if nobody passes 50%.',
+    '8:00 pm': 'Wisconsin, Minnesota, Iowa, Colorado, Nebraska and Louisiana. Wisconsin’s Legislature seats start counting too; Milwaukee’s absentee ballots usually come in late.',
+    '9:00 pm': 'Nevada.',
+    '10:00 pm': 'California. It counts for weeks, so the 22nd may not be settled tonight.',
+    '11:00 pm': 'Alaska. It counts ballots for about 10 days and may go to ranked choice.'
+  };
+  const OFFICE = { House: 'U.S. House', Senate: 'U.S. Senate', Governor: 'Governor' };
+  const userOpen = new Map(); // poll-close groups the reader opened or closed by hand
+  const nowCentral = () => {
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+    let h = Number(parts.find((p) => p.type === 'hour').value);
+    if (h < 5) h += 24;
+    return h * 60 + Number(parts.find((p) => p.type === 'minute').value);
+  };
+
+  function drawSchedule(R) {
+    const el = document.getElementById('schedule');
+    el.replaceChildren();
+    const isTs = (r) => r.rule !== 'Competitive';
     const takes = (line, who) => (line === 0 ? `${who} wins` : line < 0 ? `${who} within ${-line}` : `${who} by ${line}+`);
-    waiting.filter((r) => minutesOf(r.closes_ct) === first).forEach((r) => {
-      const who = surname(r.dem);
-      add(`${r.race}: wave if ${takes(num(r.wave_line), who)}; tsunami if ${takes(num(r.tsunami_line), who)}.`);
+    const groups = d3.groups(R.bw, (r) => r.closes_ct).sort((a, b) => minutesOf(a[0]) - minutesOf(b[0]));
+    const now = nowCentral();
+    const upcoming = groups.filter(([t]) => minutesOf(t) > now).map(([t]) => t);
+    const counting = groups.some(([t]) => minutesOf(t) <= now);
+    const autoOpen = new Set(counting ? upcoming.slice(0, 1) : upcoming.slice(0, 2));
+    groups.forEach(([t, races]) => {
+      const calledN = races.filter((r) => r.called_for).length;
+      const countingN = races.filter((r) => !r.called_for && num(r.dem_margin) !== null).length;
+      if (minutesOf(t) <= now && calledN < races.length) autoOpen.add(t);
+      const det = document.createElement('details');
+      det.open = userOpen.has(t) ? userOpen.get(t) : autoOpen.has(t);
+      const sum = document.createElement('summary');
+      sum.addEventListener('click', () => userOpen.set(t, !det.open));
+      const b = document.createElement('b'); b.textContent = `${t} Central`;
+      const states = [...new Set(races.map((r) => r.race.replace(/ (\d+(st|nd|rd|th) District|Senate|governor)$/, '')))];
+      const s1 = document.createElement('span'); s1.textContent = states.join(', ');
+      const s2 = document.createElement('span'); s2.className = 'tw-sched-sum';
+      s2.textContent = `${races.length} race${races.length > 1 ? 's' : ''}` + (calledN || countingN ? `: ${calledN} called, ${countingN} counting` : '');
+      sum.append(b, s1, s2);
+      const body = document.createElement('div'); body.className = 'tw-sched-body';
+      if (CLOSE_NOTES[t]) { const p = document.createElement('p'); p.className = 'tw-sched-note'; p.textContent = CLOSE_NOTES[t]; body.appendChild(p); }
+      races.forEach((r) => {
+        const row = document.createElement('div'); row.className = 'tw-race';
+        const name = document.createElement('div'); name.className = 'tw-race-name'; name.textContent = r.race;
+        const tag = document.createElement('span'); tag.className = 'tw-tag';
+        tag.textContent = isTs(r) ? 'Tsunami seat' : 'Wave seat';
+        tag.style.background = isTs(r) ? 'var(--tsunami)' : 'var(--wave)';
+        name.appendChild(tag);
+        const meta = document.createElement('div'); meta.className = 'tw-race-meta';
+        meta.textContent = [OFFICE[r.office] || r.office, `${r.dem || '?'} (${r.dem_party === 'I' ? 'I' : 'D'}) vs ${r.rep || '?'} (R)`, r.rating].filter(Boolean).join(' · ');
+        const who = surname(r.dem);
+        const tk = document.createElement('div'); tk.className = 'tw-race-takes';
+        tk.textContent = `Wave sign: ${takes(num(r.wave_line), who)}. Tsunami sign: ${takes(num(r.tsunami_line), who)}.`;
+        const nowEl = document.createElement('div'); nowEl.className = 'tw-race-now';
+        const m = num(r.dem_margin), st = R.status.get(r.id);
+        const big = document.createElement('b');
+        big.textContent = r.called_for ? `${r.called_for} ✓ ${m === null ? '' : fmt(m)}`.trim() : m === null ? 'Waiting' : fmt(m);
+        const small = document.createElement('span');
+        small.textContent = m === null ? '' : `${st}${r.called_for ? `, called by ${r.called_by}` : `, ${pct(r.reporting)} counted`}`;
+        if (m !== null) big.style.color = st === 'Short of wave' ? 'var(--muted)' : st === 'Tsunami sign' ? 'var(--tsunami)' : 'var(--wave)';
+        nowEl.append(big, small);
+        row.append(name, nowEl, meta, tk);
+        body.appendChild(row);
+      });
+      det.append(sum, body);
+      el.appendChild(det);
     });
   }
 
@@ -675,7 +748,7 @@
     setText('verdict', R.tally.reported ? R.tally.verdict : 'waiting for results');
     setText('cverdict', R.called.n ? R.called.verdict : 'nothing called yet');
     setText('sampled', R.sampledAt ? ct(R.sampledAt) : 'not yet');
-    [drawVerdict, drawSenate, drawTrifecta, drawWisconsin, drawNext, drawHist, drawTables, drawLanes]
+    [drawVerdict, drawSchedule, drawSenate, drawTrifecta, drawWisconsin, drawHist, drawTables, drawLanes]
       .forEach((f) => { try { f(R); } catch (e) { console.error(f.name, e); } });
   }
 
