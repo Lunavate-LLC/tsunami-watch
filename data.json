@@ -1,5 +1,5 @@
 {
- "sampled_at": "2026-11-03T23:29:39Z",
+ "sampled_at": "2026-11-03T23:36:41Z",
  "races": [
   {
    "id": "KY-6",
@@ -12,8 +12,8 @@
    "rule": "Seat Trump carried comfortably",
    "wave_line": -5,
    "tsunami_line": 0,
-   "dem_margin": null,
-   "reporting": null,
+   "dem_margin": -23.4,
+   "reporting": 0.8,
    "called_by": "",
    "bellwether": true,
    "dem": "Zach Dembo",
@@ -924,8 +924,8 @@
    "base_2024": -30.5,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -33.6,
-   "reporting": 1,
+   "dem_margin": -32.2,
+   "reporting": 1.5,
    "called_for": "",
    "called_by": "",
    "bellwether": false,
@@ -1791,6 +1791,24 @@
    "id": "KY-SEN",
    "dem_margin": -33.6,
    "reporting": 1
+  },
+  {
+   "at": "2026-11-03T23:36:41Z",
+   "id": "KY-6",
+   "dem_margin": -23.4,
+   "reporting": 0.8
+  },
+  {
+   "at": "2026-11-03T23:36:41Z",
+   "id": "IN-5",
+   "dem_margin": 27.1,
+   "reporting": 28.6
+  },
+  {
+   "at": "2026-11-03T23:36:41Z",
+   "id": "KY-SEN",
+   "dem_margin": -32.2,
+   "reporting": 1.5
   }
  ]
 }
