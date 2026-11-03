@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tsunami watch</title>
-<meta name="description" content="Election night 2026: a Democratic wave, a tsunami, or short of the polls? Live bellwethers, the Senate path to 53 and the Wisconsin trifecta.">
+<meta name="description" content="Election night 2026: a Democratic wave, a tsunami, or short of the wave? Bellwethers, the Senate path to 53 and the Wisconsin trifecta.">
 <meta property="og:title" content="Tsunami watch: election night 2026">
-<meta property="og:description" content="A wave, a tsunami, or short of the polls? Bellwethers, the Senate path to 53 and the Wisconsin trifecta, refreshed every 15 minutes.">
+<meta property="og:description" content="A wave, a tsunami, or short of the wave? Bellwethers, the Senate path to 53 and the Wisconsin trifecta, refreshed through the night.">
 <meta property="og:type" content="website">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script src="calc.js"></script>
@@ -14,7 +14,7 @@
   :root {
     color-scheme: light;
     --bg: #f7f6f2; --panel: #ffffff; --fg: #1d1c1a; --muted: #67655f; --line: #e2dfd7;
-    --grid: #ecebe5; --axis: #c4c1b8; --ref: #9a978e; --muted-mark: #a9a69d;
+    --grid: #ecebe5; --ref: #9a978e; --muted-mark: #a9a69d;
     --wave: #2b9bb3; --tsunami: #4a3cc0; --dem: #2f6db5; --rep: #c4413a; --ind: #7a5ea8;
     --popover: #ffffff; --shadow: 0 6px 24px rgba(0, 0, 0, .12); --bad: #c4413a;
     --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -24,16 +24,13 @@
     :root {
       color-scheme: dark;
       --bg: #161614; --panel: #1f1f1c; --fg: #ecebe6; --muted: #a3a097; --line: #34332f;
-      --grid: #2b2a27; --axis: #4a4843; --ref: #75726a; --muted-mark: #6f6c64;
+      --grid: #2b2a27; --ref: #75726a; --muted-mark: #6f6c64;
       --wave: #4fc0d6; --tsunami: #8d82f0; --dem: #5b93d8; --rep: #e06a62; --ind: #a58bd6;
       --popover: #2a2a26; --shadow: 0 6px 24px rgba(0, 0, 0, .5); --bad: #e06a62;
     }
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
-  .tw-scale { margin: 0; padding-left: 1.2em; display: grid; gap: 2px; }
-  .tw-wait { margin: 0; font-size: 1.1rem; font-weight: 600; }
-  .tw-fig-word { font-size: .9rem; font-weight: 600; }
   html { -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.45; }
   .tw { max-width: 72rem; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 20px; }
@@ -51,26 +48,37 @@
   .tw-stale { color: var(--bad); }
   .tw-card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 10px; min-width: 0; align-content: start; }
   .tw-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 20px; }
+  .tw-rules { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; max-width: 75ch; }
+  .tw-wait { margin: 0; font-size: 1.1rem; font-weight: 600; }
+  .tw-reads { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 14px; }
+  .tw-read { border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .tw-read-label { font-size: .8rem; color: var(--muted); }
+  .tw-big { font-family: var(--serif); font-weight: 400; font-size: 2.6rem; line-height: 1.05; }
+  .tw-num { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .tw-counts { font-size: .95rem; font-variant-numeric: tabular-nums; }
+  .tw-bar { display: flex; height: 22px; border-radius: 5px; overflow: hidden; border: 1px solid var(--line); }
+  .tw-bar span { display: block; min-width: 0; }
   .tw-figs { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: end; }
   .tw-fig { display: grid; gap: 2px; }
   .tw-fig-label { font-size: .8rem; color: var(--muted); }
-  .tw-big { font-family: var(--serif); font-weight: 400; font-size: 3rem; line-height: 1; font-variant-numeric: tabular-nums; }
-  .tw-num { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; line-height: 1.05; font-variant-numeric: tabular-nums; }
-  .tw-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: 12px; }
-  .tw-tile { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; display: grid; gap: 4px; }
-  .tw-tile-label { display: flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--muted); }
   .tw-swatch { display: inline-block; width: .65rem; height: .65rem; border-radius: 50%; flex: none; background: var(--muted-mark); }
+  .tw-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: .8rem; color: var(--muted); }
+  .tw-legend li { display: inline-flex; align-items: center; gap: 6px; }
+  .tw-key { display: inline-block; width: 1rem; height: .75rem; border-radius: 3px; border: 2px solid var(--line); flex: none; }
   .tw-chart { position: relative; }
   .tw-chart svg { display: block; }
   .tw-sen { position: relative; display: grid; grid-template-columns: repeat(auto-fill, minmax(5.4rem, 1fr)); gap: 6px; }
   .tw-sen-tile { border: 2px solid var(--line); border-radius: 8px; padding: 6px 4px; display: grid; gap: 1px; justify-items: center; font-size: .8rem; font-variant-numeric: tabular-nums; line-height: 1.3; }
   .tw-sen-tile b { font-size: 1rem; }
   .tw-sen-tile.tw-pivot { outline: 2px solid var(--fg); outline-offset: 2px; }
-  .tw-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: .8rem; color: var(--muted); }
-  .tw-legend li { display: inline-flex; align-items: center; gap: 6px; }
-  .tw-key { display: inline-block; width: 1rem; height: .75rem; border-radius: 3px; border: 2px solid var(--line); flex: none; }
+  .tw-check { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+  .tw-note-inline { color: var(--muted); }
+  .tw-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tw-chip { border: 2px solid var(--line); border-radius: 8px; padding: 3px 8px; font-size: .8rem; font-variant-numeric: tabular-nums; display: inline-grid; justify-items: center; line-height: 1.3; min-width: 4.2rem; }
+  .tw-chip b { font-size: .85rem; }
   .tw-tri { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 10px; }
   .tw-tri-card { border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 4px; align-content: start; }
+  .tw-tri-need { font-size: .875rem; }
   .tw-st { font-weight: 700; }
   .tw-st::before { display: inline-block; width: 1.3em; }
   .tw-st-won::before { content: "\2713"; }
@@ -79,7 +87,9 @@
   .tw-st-lost::before { content: "\2715"; }
   .tw-st-waiting::before { content: "\2026"; }
   .tw-st-close::before { content: "\2194"; }
-  .tw-next { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+  .tw-wi { display: grid; gap: 8px; min-width: 0; align-content: start; }
+  .tw-wi-stack { display: grid; gap: 20px; }
+  .tw-next { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
   .tw-tip { position: absolute; pointer-events: none; background: var(--popover); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 6px 10px; font-size: .8rem; max-width: 17rem; z-index: 2; line-height: 1.45; }
   .tw-tip-head { color: var(--muted); }
   .tw-scroll { overflow-x: auto; }
@@ -91,16 +101,8 @@
   .tw-status { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
   .tw-empty { color: var(--muted); font-size: .875rem; padding: 8px 0; }
   .tw-method p { margin: 0; max-width: 75ch; }
-  .tw-wi { display: grid; gap: 8px; min-width: 0; align-content: start; }
-  .tw-wi-stack { display: grid; gap: 20px; }
-  .tw-check { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
-  .tw-note-inline { color: var(--muted); }
-  .tw-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tw-chip { border: 2px solid var(--line); border-radius: 8px; padding: 3px 8px; font-size: .8rem; font-variant-numeric: tabular-nums; display: inline-grid; justify-items: center; line-height: 1.3; min-width: 4.2rem; }
-  .tw-chip b { font-size: .85rem; }
-  .tw-tri-need { font-size: .875rem; }
   footer { color: var(--muted); font-size: .8rem; max-width: 75ch; }
-  @media (max-width: 40rem) { .hide-narrow { display: none; } h1 { font-size: 1.8rem; } .tw-big { font-size: 2.5rem; } }
+  @media (max-width: 40rem) { .hide-narrow { display: none; } h1 { font-size: 1.8rem; } .tw-big { font-size: 2.2rem; } }
 </style>
 </head>
 <body>
@@ -110,28 +112,41 @@
       <h1>Tsunami watch</h1>
       <button class="tw-share" id="share" type="button">Share link</button>
     </div>
-    <p class="tw-take">Heading for: <b id="heading">loading</b> (<span id="confidence">…</span>). So far: <b id="verdict">…</b>.</p>
+    <p class="tw-take">Counting so far: <b id="verdict">loading</b>. Called so far: <b id="cverdict">…</b>.</p>
     <p class="tw-stamp">Last sampled <span id="sampled">…</span> Central. New numbers about every 7 minutes from the first poll close at 5:00 pm; this page checks for them every minute. <span id="stale" class="tw-stale" hidden>Couldn't reach the latest numbers, so this may be behind.</span></p>
   </header>
 
-  <section class="tw-card" id="heading-card">
-    <h2>Where the night is heading</h2>
-    <p class="tw-line">One number for the whole night: how much better or worse Democrats are doing than a good night needs, averaged over the races counted so far.</p>
-    <ul class="tw-scale">
-      <li><b>Below 0:</b> short of the polls</li>
-      <li><b>0 to <span id="tneed-a">+6</span>:</b> a wave, a good Democratic night</li>
-      <li><b><span id="tneed-b">+6</span> or more:</b> a tsunami, beating the polls big</li>
+  <section class="tw-card" id="verdict-card">
+    <h2>The verdict</h2>
+    <p class="tw-line">Each of the <span id="n-bw">41</span> bellwether races is a tsunami sign, a wave sign, or short of the wave:</p>
+    <ul class="tw-rules">
+      <li><b>Toss-ups and leans</b> (Maine, Texas, Virginia's 2nd): a Democratic win is a wave sign. Winning by 6 or more past the final poll is a tsunami sign. A loss is short.</li>
+      <li><b>Trump seats</b> (Kentucky's 6th, South Carolina, Florida): a Democrat within 5 is a wave sign. A Democratic win is a tsunami sign.</li>
+      <li><b>The verdict:</b> if half or more are tsunami signs, it's tsunami pace. If half or more are wave or tsunami signs, it's wave pace. Anything less is short of the wave.</li>
     </ul>
-    <p class="tw-note">It's not a lead. A Democrat losing a Trump +15 seat by 2 is still +3 past that seat's R+5 line, and one winning Maine by 3 is −2 against a final poll of D+5.</p>
-    <p class="tw-wait" id="pace-wait">Waiting for the first results at 5:00 pm Central.</p>
-    <div class="tw-figs" id="pace-figs" hidden>
-      <div class="tw-fig"><span class="tw-fig-label">Democrats vs. a good night</span><b class="tw-big" id="pace">—</b><span class="tw-fig-word" id="pace-word">—</span></div>
-      <div class="tw-fig"><span class="tw-fig-label">Tsunami at</span><b class="tw-num" id="tneed">—</b></div>
-      <div class="tw-fig"><span class="tw-fig-label">Vote counted so far</span><b class="tw-num" id="counted">—</b></div>
-      <div class="tw-fig"><span class="tw-fig-label">Bellwethers called</span><b class="tw-num" id="calledn">—</b></div>
+    <p class="tw-wait" id="wait">Waiting for the first results at 5:00 pm Central.</p>
+    <div class="tw-reads">
+      <div class="tw-read">
+        <span class="tw-read-label">Counting so far: the early signs</span>
+        <b class="tw-big" id="r-verdict">—</b>
+        <span class="tw-counts" id="r-counts">—</span>
+        <div class="tw-bar" id="r-bar"></div>
+        <span class="tw-note">Every race with votes in, on its count so far. Early counts can lean one way and drift.</span>
+      </div>
+      <div class="tw-read">
+        <span class="tw-read-label">Called so far: the confirming signs</span>
+        <b class="tw-big" id="c-verdict">—</b>
+        <span class="tw-counts" id="c-counts">—</span>
+        <div class="tw-bar" id="c-bar"></div>
+        <span class="tw-note">Only races a decision desk has called.</span>
+      </div>
     </div>
-    <div class="tw-chart" id="gauge"></div>
-    <p class="tw-note">Each small dot is one race's count against its own wave line; the big dot is tonight's pace.</p>
+    <ul class="tw-legend">
+      <li><i class="tw-swatch" data-swatch="tsunami"></i>Tsunami sign</li>
+      <li><i class="tw-swatch" data-swatch="wave"></i>Wave sign</li>
+      <li><i class="tw-swatch" data-swatch="short"></i>Short of the wave</li>
+      <li><i class="tw-swatch" data-swatch="waiting"></i>No result yet</li>
+    </ul>
   </section>
 
   <section class="tw-grid2">
@@ -146,17 +161,17 @@
       <div class="tw-chips" id="s-flipchips"></div>
       <div class="tw-figs">
         <div class="tw-fig"><span class="tw-fig-label">Democratic seats, called or leading</span><b class="tw-big" id="s-now">—</b></div>
-        <div class="tw-fig"><span class="tw-fig-label">Projected at tonight's pace</span><b class="tw-big" id="s-proj">—</b></div>
+        <div class="tw-fig"><span class="tw-fig-label">Called so far</span><b class="tw-big" id="s-called">—</b></div>
         <div class="tw-fig"><span class="tw-fig-label">The hope</span><b class="tw-num" id="s-target">—</b></div>
       </div>
       <div class="tw-sen" id="senate"></div>
       <ul class="tw-legend">
         <li><i class="tw-key" data-key="called"></i>Called (&#10003;)</li>
         <li><i class="tw-key" data-key="leading"></i>Leading in the count (&#9650;)</li>
-        <li><i class="tw-key" data-key="projected"></i>No results yet</li>
+        <li><i class="tw-key" data-key="waiting"></i>No results yet</li>
         <li><i class="tw-key" data-key="pivot"></i>The 53rd seat</li>
       </ul>
-      <p class="tw-note">Ordered from Democrats' strongest seat to weakest, so the outlined race is the one that would make 53. Safe seats count for their favored party until they're called.</p>
+      <p class="tw-note">Ordered from Democrats' strongest seat to weakest: called seats, then the count, then the final polls. The outlined race is the one that would make 53. An independent who wins isn't counted toward 53.</p>
     </section>
 
     <section class="tw-card" id="trifecta-card">
@@ -196,26 +211,19 @@
   <section class="tw-grid2">
     <section class="tw-card">
       <h2>Next to report</h2>
-      <p class="tw-note">The next poll close with bellwethers still waiting, and what tonight's pace says they'll show.</p>
+      <p class="tw-note">The next poll close with bellwethers still waiting, and what each sign takes there.</p>
       <ul class="tw-next" id="nextup"></ul>
     </section>
     <section class="tw-card">
-      <h2>Pace through the night</h2>
-      <p class="tw-note">Tonight's pace at each sample. Early counts can lean one way and drift as other kinds of ballots come in.</p>
+      <h2>Signs through the night</h2>
+      <p class="tw-note">How many bellwethers were tsunami signs, wave signs and short at each sample.</p>
       <div class="tw-chart" id="hist"></div>
     </section>
   </section>
 
-  <section class="tw-tiles" aria-label="Bellwethers by status">
-    <div class="tw-tile"><span class="tw-tile-label"><i class="tw-swatch" data-swatch="tsunami"></i>Tsunami signs</span><b class="tw-num" id="n-tsunami">—</b></div>
-    <div class="tw-tile"><span class="tw-tile-label"><i class="tw-swatch" data-swatch="wave"></i>Wave signs</span><b class="tw-num" id="n-wave">—</b></div>
-    <div class="tw-tile"><span class="tw-tile-label"><i class="tw-swatch" data-swatch="short"></i>Short of the wave</span><b class="tw-num" id="n-short">—</b></div>
-    <div class="tw-tile"><span class="tw-tile-label"><i class="tw-swatch" data-swatch="waiting"></i>Waiting for results</span><b class="tw-num" id="n-waiting">—</b></div>
-  </section>
-
   <section class="tw-card">
     <h2>By region</h2>
-    <p class="tw-note">How each part of the country is landing against its lines, with Wisconsin and Minnesota split out. The East Coast, Kentucky and Indiana report first; Texas, the Midwest and Colorado follow, and the West comes last, with California counting slowly.</p>
+    <p class="tw-note">How each part of the country is landing, with Wisconsin and Minnesota split out. The East Coast, Kentucky and Indiana report first; Texas, the Midwest and Colorado follow, and the West comes last, with California counting slowly.</p>
     <div class="tw-scroll">
       <table>
         <thead><tr><th>Region</th><th>Tsunami</th><th>Wave</th><th>Short</th><th>Waiting</th></tr></thead>
@@ -226,7 +234,7 @@
 
   <section class="tw-card">
     <h2>Where each result landed</h2>
-    <p class="tw-note">Democratic margin by poll close. The dashed mark is the wave line and the solid mark is the tsunami line. A filled dot is the count so far; a hollow ring is where tonight's pace puts a race that hasn't reported.</p>
+    <p class="tw-note">Democratic margin on the count so far, by poll close. The dashed mark is the wave line and the solid mark is the tsunami line. A dot appears once a race has results.</p>
     <div class="tw-chart" id="lanes"></div>
   </section>
 
@@ -238,7 +246,7 @@
         <thead><tr>
           <th>Closes</th><th>Race</th><th class="hide-narrow">Region</th><th class="hide-narrow">Benchmark</th>
           <th class="hide-narrow">Wave line</th><th class="hide-narrow">Tsunami line</th><th>Margin now</th><th class="hide-narrow">Counted</th>
-          <th class="hide-narrow">Called by</th><th>Status</th><th class="hide-narrow">Projected</th>
+          <th class="hide-narrow">Called by</th><th>Status</th>
         </tr></thead>
         <tbody id="rows"></tbody>
       </table>
@@ -246,38 +254,37 @@
   </section>
 
   <section class="tw-card tw-method">
-    <h2>How it works</h2>
-    <p>In seats Trump carried comfortably, a close race is a wave sign and a Democratic win is a tsunami sign, following the early-race guides from NPR and Daily Kos.</p>
-    <p>In competitive races, the wave line is the analysts' marker or the final poll, and the tsunami line sits 6 points beyond it, about the size of Marquette's biggest final-poll miss since 2016. These tsunami lines are our own working lines, not a forecaster's.</p>
-    <p>Tonight's pace weights each race by the share of its vote counted. A race still counting is filled out at that pace for the rest of its vote, and a race with no results yet is projected at its wave line plus that pace. The projected statuses give the heading, by the same rules as the verdict: half or more tsunami signs is tsunami pace, half or more tsunami or wave signs is wave pace.</p>
-    <p>The heading is an early sign until <span id="early">3</span> races' worth of votes are counted (two races each half counted make one). It's confirmed once half the bellwethers are called and the called races alone give the same verdict.</p>
-    <p>Senate seats count Democrats not up this year, races called for them and races they lead. The projection adds races without results at tonight's pace. An independent who wins is shown separately and not counted toward 53.</p>
+    <h2>How the lines are set</h2>
+    <p>Toss-ups and leans: the wave line is a Democratic win. The tsunami line is 6 points past the final poll or the analysts' marker, about the size of Marquette's biggest final-poll miss since 2016. That line is our own working line, not a forecaster's.</p>
+    <p>Seats Trump carried comfortably, and Republican-leaning statewide races: a Democrat within 5 is a wave sign and a Democratic win is a tsunami sign, following the early-race guides from NPR and Daily Kos.</p>
+    <p>The counting read uses every race with votes in, so it comes first and can drift. The called read uses only races a decision desk has called, so it comes later and doesn't move.</p>
   </section>
 
-  <footer>Unofficial tracker. Vote counts and race calls come from NBC News and are sampled about every 7 minutes, so they trail live results pages by a few minutes. Wisconsin Legislature seats and ballot questions are filled in by hand from news reports. Statuses on uncalled races read the count so far.</footer>
+  <footer>Unofficial tracker. Vote counts and race calls come from NBC News and are sampled about every 7 minutes, so they trail live results pages by a few minutes. Wisconsin Legislature seats and ballot questions are filled in by hand from news reports.</footer>
 </main>
 
 <script>
   const num = TW.num;
   const fmt = (v) => { const n = num(v); if (n === null) return '—'; if (n === 0) return 'Even'; return (n > 0 ? 'D+' : 'R+') + d3.format('.1~f')(Math.abs(n)); };
-  const signed = (v) => { const n = num(v); if (n === null) return '—'; if (Math.abs(n) < 0.05) return '0'; return (n > 0 ? '+' : '−') + d3.format('.1f')(Math.abs(n)); };
-  const tick = (v) => { const n = num(v); if (n === null) return ''; if (n === 0) return '0'; return (n > 0 ? '+' : '−') + d3.format('.1~f')(Math.abs(n)); };
+  const pct = (v) => { const n = num(v); return n === null ? '—' : d3.format('.0f')(n) + '%'; };
+  const ct = (at) => { const d = new Date(at); if (!at || Number.isNaN(d.getTime())) return '—'; return d.toLocaleTimeString('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: '2-digit' }).toLowerCase(); };
+  const statusColor = (s) => (s === 'Tsunami sign' ? 'var(--tsunami)' : s === 'Wave sign' ? 'var(--wave)' : s === 'Short of wave' ? 'var(--muted-mark)' : 'transparent');
+  const party = (side) => (side === 'D' ? 'var(--dem)' : side === 'R' ? 'var(--rep)' : side === 'I' ? 'var(--ind)' : 'var(--muted-mark)');
+  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  const surname = (s) => String(s || '').replace(/\(.*?\)/g, '').trim().split(' ').filter((w) => !/^(jr\.?|sr\.?|ii|iii)$/i.test(w)).pop() || 'the Democrat';
+  const minutesOf = (s) => {
+    const m = /^(\d+):(\d+)\s*(am|pm)$/i.exec(String(s || '').trim());
+    if (!m) return 9999;
+    let h = (Number(m[1]) % 12) + (m[3].toLowerCase() === 'pm' ? 12 : 0);
+    if (m[3].toLowerCase() === 'am' && h < 5) h += 24;
+    return h * 60 + Number(m[2]);
+  };
   // Keep an axis label whole inside the chart: centered on its tick unless that would clip at an edge.
   const keepInside = (sel, W) => sel.each(function () {
     const half = this.getComputedTextLength() / 2;
     const cx = Number(this.getAttribute('x'));
     this.setAttribute('x', Math.max(half + 1, Math.min(W - half - 1, cx)));
   });
-  const pct = (v) => { const n = num(v); return n === null ? '—' : d3.format('.0f')(n) + '%'; };
-  const ct = (at) => { const d = new Date(at); if (!at || Number.isNaN(d.getTime())) return '—'; return d.toLocaleTimeString('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: '2-digit' }).toLowerCase(); };
-  const statusColor = (s) => (s === 'Tsunami sign' ? 'var(--tsunami)' : s === 'Wave sign' ? 'var(--wave)' : s === 'Short of wave' ? 'var(--muted-mark)' : 'transparent');
-  const party = (side) => (side === 'D' ? 'var(--dem)' : side === 'R' ? 'var(--rep)' : side === 'I' ? 'var(--ind)' : 'var(--muted-mark)');
-  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-  const minutesOf = (s) => {
-    const m = /^(\d+):(\d+)\s*(am|pm)$/i.exec(String(s || '').trim());
-    if (!m) return 9999;
-    return ((Number(m[1]) % 12) + (m[3].toLowerCase() === 'pm' ? 12 : 0)) * 60 + Number(m[2]);
-  };
 
   const makeTip = (el) => {
     const tip = document.createElement('div');
@@ -308,65 +315,8 @@
     const k = el.getAttribute('data-key');
     if (k === 'called') { el.style.background = 'var(--dem)'; el.style.borderColor = 'var(--dem)'; }
     if (k === 'leading') { el.style.background = 'color-mix(in srgb, var(--dem) 30%, transparent)'; el.style.borderColor = 'var(--dem)'; }
-    if (k === 'projected') { el.style.borderColor = 'var(--dem)'; el.style.borderStyle = 'dashed'; }
     if (k === 'pivot') { el.style.outline = '2px solid var(--fg)'; el.style.outlineOffset = '1px'; }
   });
-
-  function drawGauge(R) {
-    const el = document.getElementById('gauge');
-    el.replaceChildren();
-    const T = num(R.pace.tsunamiNeed) ?? 6;
-    const pace = num(R.pace.pace);
-    const pts = R.bw.map((r) => ({ r, v: R.projected.get(r.id).pastWave })).filter((d) => d.v !== null);
-    const vals = [0, T, ...pts.map((d) => d.v), ...(pace === null ? [] : [pace])];
-    const lo = Math.min(-8, d3.min(vals) - 2), hi = Math.max(T + 6, d3.max(vals) + 2);
-    const W = Math.max(280, el.clientWidth || 600), H = 112;
-    const x = d3.scaleLinear([lo, hi], [4, W - 4]);
-    const bandY = 52, bandH = 22, dotY = 36;
-    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-      .attr('role', 'img').attr('aria-label', 'Tonight’s pace against the wave and tsunami marks');
-    [
-      { a: lo, b: 0, fill: 'var(--muted-mark)', op: 0.3, label: 'Short of the wave', short: 'Short' },
-      { a: 0, b: T, fill: 'var(--wave)', op: 0.28, label: 'Wave', short: 'Wave' },
-      { a: T, b: hi, fill: 'var(--tsunami)', op: 0.28, label: 'Tsunami', short: 'Tsunami' }
-    ].forEach((z) => {
-      svg.append('rect').attr('x', x(z.a)).attr('width', Math.max(0, x(z.b) - x(z.a))).attr('y', bandY).attr('height', bandH).attr('rx', 3)
-        .style('fill', z.fill).style('opacity', z.op);
-      const t = svg.append('text').attr('x', (x(z.a) + x(z.b)) / 2).attr('y', 14).attr('text-anchor', 'middle')
-        .style('fill', 'var(--muted)').style('font-size', '13px').text(z.label);
-      const room = x(z.b) - x(z.a) - 8;
-      if (t.node().getComputedTextLength() > room) t.text(z.short);
-      if (t.node().getComputedTextLength() > room) t.remove();
-    });
-    [[0, 'var(--wave)', '3 2'], [T, 'var(--tsunami)', null]].forEach(([v, c, d]) => {
-      svg.append('line').attr('x1', x(v)).attr('x2', x(v)).attr('y1', bandY - 4).attr('y2', bandY + bandH + 4)
-        .style('stroke', c).attr('stroke-width', 2).attr('stroke-dasharray', d);
-    });
-    svg.append('g').selectAll('text').data(x.ticks(W < 480 ? 4 : 8)).join('text')
-      .attr('x', (t) => x(t)).attr('y', H - 6).attr('text-anchor', 'middle')
-      .style('fill', 'var(--muted)').style('font-size', '12px').text((t) => tick(t))
-      .call(keepInside, W);
-    svg.append('g').selectAll('circle').data(pts).join('circle')
-      .attr('cx', (d) => x(d.v)).attr('cy', dotY).attr('r', 4).style('fill', 'var(--muted)').style('opacity', 0.75);
-    if (pace !== null) {
-      svg.append('line').attr('x1', x(pace)).attr('x2', x(pace)).attr('y1', dotY + 6).attr('y2', bandY + bandH + 6)
-        .style('stroke', 'var(--fg)').attr('stroke-width', 2).attr('stroke-linecap', 'round');
-      svg.append('circle').attr('cx', x(pace)).attr('cy', bandY + bandH / 2).attr('r', 8)
-        .style('fill', 'var(--fg)').style('stroke', 'var(--panel)').attr('stroke-width', 2);
-    }
-    const tip = makeTip(el);
-    svg.append('rect').attr('width', W).attr('height', H).style('fill', 'transparent')
-      .on('pointermove', (ev) => {
-        const vx = x.invert(d3.pointer(ev, svg.node())[0]);
-        const near = d3.least(pts, (d) => Math.abs(d.v - vx));
-        if (pace !== null && (!near || Math.abs(pace - vx) <= Math.abs(near.v - vx))) {
-          tip.show(ev, 'Tonight’s pace', [`${signed(pace)} past the wave line`, `Tsunami pace starts at ${signed(T)}`]);
-        } else if (near) {
-          tip.show(ev, near.r.race, [`${signed(near.v)} against its wave line`, `Count ${fmt(near.r.dem_margin)}${num(near.r.reporting) !== null ? `, ${pct(near.r.reporting)} counted` : ''}`]);
-        } else tip.hide();
-      })
-      .on('pointerleave', () => tip.hide());
-  }
 
   // A small seat tile: filled when called, tinted when leading, plain before results.
   const chip = (label, r) => {
@@ -384,6 +334,27 @@
     return el;
   };
 
+  const fillBar = (el, c, rest) => {
+    el.replaceChildren();
+    [['tsunami', 'var(--tsunami)'], ['wave', 'var(--wave)'], ['short', 'var(--muted-mark)']].forEach(([k, color]) => {
+      if (!c[k]) return;
+      const s = document.createElement('span'); s.style.flex = String(c[k]); s.style.background = color; el.appendChild(s);
+    });
+    if (rest > 0) { const s = document.createElement('span'); s.style.flex = String(rest); el.appendChild(s); }
+  };
+
+  function drawVerdict(R) {
+    const t = R.tally, c = R.called, n = R.bw.length;
+    setText('n-bw', n);
+    document.getElementById('wait').hidden = t.reported > 0;
+    setText('r-verdict', t.reported ? t.verdict : 'waiting');
+    setText('r-counts', t.reported ? `${t.tsunami} tsunami, ${t.wave} wave, ${t.short} short, of ${t.reported} counting` : 'No votes in yet');
+    fillBar(document.getElementById('r-bar'), t, n - t.reported);
+    setText('c-verdict', c.n ? c.verdict : 'none called yet');
+    setText('c-counts', c.n ? `${c.tsunami} tsunami, ${c.wave} wave, ${c.short} short, of ${c.n} called` : 'No bellwether called yet');
+    fillBar(document.getElementById('c-bar'), c, n - c.n);
+  }
+
   function drawSenate(R) {
     const s = R.senate;
     setText('s-notup', s.notUpD); setText('s-need', s.need); setText('s-up', s.up);
@@ -391,35 +362,30 @@
     const anyResults = s.rows.some((r) => r.sideNow);
     setText('s-holds-line', anyResults ? `${s.holds} holding so far (called or leading), ${s.lost} slipping.` : 'No results yet.');
     setText('s-flips-line', anyResults ? `${s.flips} of ${s.flipsNeeded} so far (called or leading).` : 'No results yet.');
-    const fc = document.getElementById('s-flipchips');
-    fc.replaceChildren(...s.flipRows.map((d) => chip(d.state, d.race)));
-    setText('s-now', s.nowD); setText('s-proj', s.projectedD); setText('s-target', s.target);
+    document.getElementById('s-flipchips').replaceChildren(...s.flipRows.map((d) => chip(d.state, d.race)));
+    setText('s-now', s.nowD); setText('s-called', s.calledTotalD); setText('s-target', s.target);
     const el = document.getElementById('senate');
     el.replaceChildren();
     const tip = makeTip(el);
     s.rows.forEach((d) => {
       const r = d.race;
-      const side = d.kind === 'called' || d.kind === 'leading' ? d.sideNow : d.sideProj;
-      const c = party(side);
+      const c = party(d.sideNow);
       const tile = document.createElement('div');
       tile.className = 'tw-sen-tile' + (d.pivot ? ' tw-pivot' : '');
       if (d.kind === 'called') { tile.style.background = c; tile.style.borderColor = c; tile.style.color = '#fff'; }
-      else if (d.kind === 'leading') { tile.style.background = `color-mix(in srgb, ${c} 30%, transparent)`; tile.style.borderColor = c; }
-      else if (side) { tile.style.borderColor = c; tile.style.borderStyle = 'dashed'; }
+      else if (d.kind === 'leading' && d.sideNow) { tile.style.background = `color-mix(in srgb, ${c} 30%, transparent)`; tile.style.borderColor = c; }
       const b = document.createElement('b'); b.textContent = d.state;
       const who = document.createElement('span');
-      who.textContent = side ? `${side} ${d.kind === 'called' ? '✓' : d.kind === 'leading' ? '▲' : ''}`.trim() : '?';
+      who.textContent = d.kind === 'called' ? `${d.sideNow} ✓` : d.kind === 'leading' ? (d.sideNow ? `${d.sideNow} ▲` : 'tied') : `${r.seat_now}-held`;
       const n = document.createElement('span');
-      n.textContent = d.kind === 'called' && d.margin === null ? 'called'
-        : d.kind === 'called' || d.kind === 'leading' ? fmt(d.margin) : d.projected !== null ? `proj ${fmt(d.projected)}` : (r.rating || 'safe');
+      n.textContent = d.kind === 'waiting' ? (r.rating || '') : d.margin === null ? 'called' : fmt(d.margin);
       tile.append(b, who, n);
       tile.addEventListener('pointermove', (ev) => {
         const lines = [];
         if (r.dem || r.rep) lines.push(`${r.dem || '?'} vs ${r.rep || '?'}`);
         if (d.kind === 'called') lines.push(`Called for ${d.sideNow} by ${r.called_by || 'a decision desk'}`);
         else if (d.kind === 'leading') lines.push(`Count ${fmt(d.margin)}${num(r.reporting) !== null ? `, ${pct(r.reporting)} counted` : ''}`);
-        else if (d.projected !== null) lines.push(`No results yet; projected ${fmt(d.projected)}`);
-        else lines.push(`No results yet; ${r.rating || 'safe'}`);
+        else lines.push(`No results yet; ${r.rating || ''}${num(r.poll) !== null ? `, final polls ${fmt(r.poll)}` : ''}`);
         if (d.pivot) lines.push('The 53rd seat in this order');
         tip.show(ev, r.race || d.state, lines);
       });
@@ -443,23 +409,18 @@
       st.textContent = p.status;
       const d = document.createElement('span'); d.className = 'tw-note'; d.textContent = p.detail;
       card.append(h, st, d);
-      const seats = (R.trifecta.seats || {})[p.part];
       const gov = p.part === 'gov' ? R.bw.find((r) => r.id === 'WI-GOV') : null;
+      const seats = (R.trifecta.seats || {})[p.part];
+      const need = document.createElement('span');
+      need.className = 'tw-tri-need';
+      const chips = document.createElement('div');
+      chips.className = 'tw-chips';
       if (gov) {
-        const need = document.createElement('span');
-        need.className = 'tw-tri-need';
         need.textContent = `Needs ${gov.dem} (D) to beat ${gov.rep} (R):`;
-        const chips = document.createElement('div');
-        chips.className = 'tw-chips';
         chips.append(chip('Governor', gov));
         card.append(need, chips);
-      }
-      if (seats && seats.length) {
-        const need = document.createElement('span');
-        need.className = 'tw-tri-need';
+      } else if (seats && seats.length) {
         need.textContent = `Needs ${p.needD} of these ${p.battlegrounds}; winning or leading ${p.dBattle}:`;
-        const chips = document.createElement('div');
-        chips.className = 'tw-chips';
         chips.append(...seats.map((r) => chip(r.id.replace('WI-', '').replace(/^(SD|AD)/, '$1 '), r)));
         card.append(need, chips);
       }
@@ -475,116 +436,107 @@
       if (r.called_for) return `${r.called_for} ✓ ${m === null ? 'called' : fmt(m)}`;
       return m === null ? '—' : `${m > 0 ? 'D ▲' : m < 0 ? 'R ▲' : ''} ${fmt(m)}`.trim();
     };
+    const row = (tb, cells) => {
+      const tr = document.createElement('tr');
+      cells.forEach(([text, cls]) => { const td = document.createElement('td'); if (cls) td.className = cls; td.textContent = text; tr.appendChild(td); });
+      tb.appendChild(tr);
+    };
     ['sen', 'asm'].forEach((part) => {
       const tb = document.getElementById(`wi-${part}`);
-      if (!tb) return;
       tb.replaceChildren();
-      (t.seats[part] || []).forEach((r) => {
-        const tr = document.createElement('tr');
-        const cell = (text, cls) => { const td = document.createElement('td'); if (cls) td.className = cls; td.textContent = text; tr.appendChild(td); return td; };
-        cell(r.race, 'n');
-        cell(`${r.dem || '?'} (D) vs ${r.rep || '?'} (R)`);
-        cell(r.rating || '—', 'n hide-narrow');
-        cell(fmt(r.base_2024), 'n hide-narrow');
-        cell(nowText(r), 'n');
-        cell(pct(r.reporting), 'n hide-narrow');
-        tb.appendChild(tr);
-      });
+      (t.seats[part] || []).forEach((r) => row(tb, [
+        [r.race, 'n'], [`${r.dem || '?'} (D) vs ${r.rep || '?'} (R)`], [r.rating || '—', 'n hide-narrow'],
+        [fmt(r.base_2024), 'n hide-narrow'], [nowText(r), 'n'], [pct(r.reporting), 'n hide-narrow']
+      ]));
     });
     const tb = document.getElementById('wi-ballot');
     tb.replaceChildren();
     t.ballot.forEach((r) => {
-      const tr = document.createElement('tr');
-      const cell = (text, cls) => { const td = document.createElement('td'); if (cls) td.className = cls; td.textContent = text; tr.appendChild(td); return td; };
-      cell(r.race);
-      cell(r.office === 'WI Question' ? r.benchmark : `${r.dem || '?'} (D) vs ${r.rep || '?'} (R)`, 'bench');
-      if (r.office === 'WI Question') {
-        const y = num(r.yes_pct);
-        cell(r.called_for === 'Yes' ? 'Passed ✓' : r.called_for === 'No' ? 'Failed ✕' : y === null ? '—' : `Yes ${d3.format('.0f')(y)}%`, 'n');
-      } else cell(nowText(r), 'n');
-      cell(pct(r.reporting), 'n hide-narrow');
-      tb.appendChild(tr);
+      const q = r.office === 'WI Question';
+      const y = num(r.yes_pct);
+      row(tb, [
+        [r.race], [q ? r.benchmark : `${r.dem || '?'} (D) vs ${r.rep || '?'} (R)`, 'bench'],
+        [q ? (r.called_for === 'Yes' ? 'Passed ✓' : r.called_for === 'No' ? 'Failed ✕' : y === null ? '—' : `Yes ${d3.format('.0f')(y)}%`) : nowText(r), 'n'],
+        [pct(r.reporting), 'n hide-narrow']
+      ]);
     });
   }
 
   function drawNext(R) {
     const ul = document.getElementById('nextup');
     ul.replaceChildren();
-    const add = (t) => { const li = document.createElement('li'); li.textContent = t; ul.appendChild(li); };
+    const add = (t, bold) => { const li = document.createElement('li'); if (bold) { const b = document.createElement('b'); b.textContent = t; li.appendChild(b); } else li.textContent = t; ul.appendChild(li); };
     const waiting = R.bw.filter((r) => num(r.dem_margin) === null);
     if (!waiting.length) { add('Every bellwether has results.'); return; }
     const first = d3.min(waiting, (r) => minutesOf(r.closes_ct));
-    const group = waiting.filter((r) => minutesOf(r.closes_ct) === first);
-    add(`${group[0].closes_ct} Central:`);
-    group.forEach((r) => {
-      const p = R.projected.get(r.id);
-      add(p.projected === null ? `${r.race}: projected once the first results come in` : `${r.race}: projected ${fmt(p.projected)}, a ${p.status.toLowerCase()}`);
+    add(`${waiting.find((r) => minutesOf(r.closes_ct) === first).closes_ct} Central`, true);
+    const takes = (line, who) => (line === 0 ? `${who} wins` : line < 0 ? `${who} within ${-line}` : `${who} by ${line}+`);
+    waiting.filter((r) => minutesOf(r.closes_ct) === first).forEach((r) => {
+      const who = surname(r.dem);
+      add(`${r.race}: wave if ${takes(num(r.wave_line), who)}; tsunami if ${takes(num(r.tsunami_line), who)}.`);
     });
   }
 
   function drawHist(R) {
     const el = document.getElementById('hist');
     el.replaceChildren();
-    const rows = R.history.filter((d) => d.pace !== null).map((d) => ({ ...d, t: new Date(d.at) })).filter((d) => !Number.isNaN(d.t.getTime()));
+    const rows = R.history.map((d) => ({ ...d, t: new Date(d.at) })).filter((d) => !Number.isNaN(d.t.getTime()) && d.tsunami + d.wave + d.short > 0);
     if (!rows.length) {
       const e = document.createElement('div'); e.className = 'tw-empty';
-      e.textContent = 'The line starts with the first sample after polls close.';
+      e.textContent = 'The lines start with the first sample after polls close.';
       el.appendChild(e);
       return;
     }
-    const T = num(R.pace.tsunamiNeed) ?? 6;
-    const W = Math.max(280, el.clientWidth || 600), H = 240, top = 10, bottom = 26, right = 58;
-    const vs = rows.map((d) => d.pace);
-    const lo = Math.min(-6, d3.min(vs) - 1), hi = Math.max(T + 4, d3.max(vs) + 1);
-    const y = d3.scaleLinear([lo, hi], [H - bottom, top]);
-    const yt = y.ticks(5);
+    const series = [['tsunami', 'Tsunami', 'var(--tsunami)'], ['wave', 'Wave', 'var(--wave)'], ['short', 'Short', 'var(--muted-mark)']];
+    const W = Math.max(280, el.clientWidth || 600), H = 220, top = 10, bottom = 26, right = 70;
+    const hi = Math.max(4, d3.max(rows, (d) => Math.max(d.tsunami, d.wave, d.short)));
+    const y = d3.scaleLinear([0, hi], [H - bottom, top]).nice();
+    const yt = y.ticks(5).filter((v) => Number.isInteger(v));
     const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-      .attr('role', 'img').attr('aria-label', 'Tonight’s pace at each sample');
+      .attr('role', 'img').attr('aria-label', 'Tsunami signs, wave signs and short races at each sample');
     const probe = svg.append('text').style('font-size', '12px');
     let lw = 0;
-    yt.forEach((t) => { probe.text(tick(t)); lw = Math.max(lw, probe.node().getComputedTextLength()); });
+    yt.forEach((v) => { probe.text(String(v)); lw = Math.max(lw, probe.node().getComputedTextLength()); });
     probe.remove();
     const left = lw + 10;
     let t0 = d3.min(rows, (d) => d.t), t1 = d3.max(rows, (d) => d.t);
     if (+t0 === +t1) { t0 = new Date(+t0 - 30 * 60000); t1 = new Date(+t1 + 30 * 60000); }
     const x = d3.scaleUtc([t0, t1], [left, W - right]);
-    [{ a: lo, b: 0, f: 'var(--muted-mark)', o: 0.18 }, { a: 0, b: T, f: 'var(--wave)', o: 0.16 }, { a: T, b: hi, f: 'var(--tsunami)', o: 0.16 }].forEach((z) => {
-      svg.append('rect').attr('x', left).attr('width', W - right - left).attr('y', y(z.b)).attr('height', Math.max(0, y(z.a) - y(z.b)))
-        .style('fill', z.f).style('opacity', z.o);
-    });
     svg.append('g').selectAll('line').data(yt).join('line')
-      .attr('x1', left).attr('x2', W - right).attr('y1', (t) => y(t)).attr('y2', (t) => y(t))
+      .attr('x1', left).attr('x2', W - right).attr('y1', (v) => y(v)).attr('y2', (v) => y(v))
       .style('stroke', 'var(--grid)').attr('stroke-width', 1);
     svg.append('g').selectAll('text').data(yt).join('text')
-      .attr('x', left - 6).attr('y', (t) => y(t)).attr('dy', '0.35em').attr('text-anchor', 'end')
-      .style('fill', 'var(--muted)').style('font-size', '12px').text((t) => tick(t));
-    [[0, 'Wave', 'var(--wave)', '3 2'], [T, 'Tsunami', 'var(--tsunami)', null]].forEach(([v, label, c, d]) => {
-      svg.append('line').attr('x1', left).attr('x2', W - right).attr('y1', y(v)).attr('y2', y(v)).style('stroke', c).attr('stroke-width', 1.5).attr('stroke-dasharray', d);
-      svg.append('text').attr('x', W - right + 6).attr('y', y(v)).attr('dy', '0.35em').style('fill', 'var(--muted)').style('font-size', '12px').text(label);
-    });
+      .attr('x', left - 6).attr('y', (v) => y(v)).attr('dy', '0.35em').attr('text-anchor', 'end')
+      .style('fill', 'var(--muted)').style('font-size', '12px').text((v) => String(v));
     svg.append('g').selectAll('text').data(x.ticks(W < 480 ? 3 : 6)).join('text')
       .attr('x', (t) => x(t)).attr('y', H - 6).attr('text-anchor', 'middle')
       .style('fill', 'var(--muted)').style('font-size', '12px').text((t) => ct(t))
       .call(keepInside, W);
-    svg.append('path').datum(rows).attr('d', d3.line().x((d) => x(d.t)).y((d) => y(d.pace)))
-      .style('fill', 'none').style('stroke', 'var(--fg)').attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
-    svg.append('g').selectAll('circle').data(rows).join('circle')
-      .attr('cx', (d) => x(d.t)).attr('cy', (d) => y(d.pace)).attr('r', 3).style('fill', 'var(--fg)');
+    const last = rows[rows.length - 1];
+    const ends = series.map(([k, label, c]) => ({ k, label, c, y: y(last[k]) })).sort((a, b) => a.y - b.y);
+    for (let i = 1; i < ends.length; i += 1) if (ends[i].y - ends[i - 1].y < 14) ends[i].y = ends[i - 1].y + 14;
+    series.forEach(([k, label, c]) => {
+      svg.append('path').datum(rows).attr('d', d3.line().x((d) => x(d.t)).y((d) => y(d[k])))
+        .style('fill', 'none').style('stroke', c).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+    });
+    ends.forEach((e) => {
+      svg.append('text').attr('x', W - right + 6).attr('y', e.y).attr('dy', '0.35em')
+        .style('fill', 'var(--muted)').style('font-size', '12px').text(`${e.label} ${last[e.k]}`);
+    });
     const tip = makeTip(el);
-    const hover = svg.append('circle').attr('r', 5).style('fill', 'var(--fg)').style('stroke', 'var(--panel)').attr('stroke-width', 2).attr('visibility', 'hidden');
+    const rule = svg.append('line').attr('y1', top).attr('y2', H - bottom).style('stroke', 'var(--ref)').attr('visibility', 'hidden');
     svg.append('rect').attr('x', left).attr('y', top).attr('width', W - right - left).attr('height', H - top - bottom).style('fill', 'transparent')
       .on('pointermove', (ev) => {
         const vx = x.invert(d3.pointer(ev, svg.node())[0]);
         const d = d3.least(rows, (r) => Math.abs(r.t - vx));
         if (!d) return;
-        hover.attr('cx', x(d.t)).attr('cy', y(d.pace)).attr('visibility', 'visible');
-        tip.show(ev, `${ct(d.at)} Central`, [`Pace ${signed(d.pace)}`, `${d3.format('.1f')(d.counted || 0)} races' worth counted`]);
+        rule.attr('x1', x(d.t)).attr('x2', x(d.t)).attr('visibility', 'visible');
+        tip.show(ev, `${ct(d.at)} Central: ${d.verdict}`, [`${d.tsunami} tsunami signs`, `${d.wave} wave signs`, `${d.short} short`]);
       })
-      .on('pointerleave', () => { tip.hide(); hover.attr('visibility', 'hidden'); });
+      .on('pointerleave', () => { tip.hide(); rule.attr('visibility', 'hidden'); });
   }
 
   function drawTables(R) {
-    ['tsunami', 'wave', 'short', 'waiting'].forEach((k) => setText('n-' + k, R.tally[k]));
     const rg = document.getElementById('regions');
     rg.replaceChildren();
     R.regions.forEach((row) => {
@@ -615,7 +567,6 @@
       if (st === 'Waiting') dot.style.boxShadow = 'inset 0 0 0 1.5px var(--muted-mark)';
       const label = document.createElement('span'); label.textContent = st;
       wrap.append(dot, label); td.appendChild(wrap);
-      cell(fmt(R.projected.get(r.id).projected), 'n hide-narrow');
       tb.appendChild(tr);
     });
   }
@@ -633,8 +584,7 @@
     rows.forEach((d) => { probe.text(d.id); lw = Math.max(lw, probe.node().getComputedTextLength()); });
     probe.remove();
     const left = lw + 16, right = 22;
-    const projOf = (d) => (num(d.dem_margin) === null ? R.projected.get(d.id).projected : null);
-    const vals = rows.flatMap((d) => [num(d.wave_line), num(d.tsunami_line), num(d.dem_margin), projOf(d)]).filter((v) => v !== null);
+    const vals = rows.flatMap((d) => [num(d.wave_line), num(d.tsunami_line), num(d.dem_margin)]).filter((v) => v !== null);
     const lo = Math.min(-20, (d3.min(vals) ?? 0) - 3), hi = Math.max(20, (d3.max(vals) ?? 0) + 3);
     const x = d3.scaleLinear([lo, hi], [left, W - right]);
     const ticks = x.ticks(W < 480 ? 4 : 8);
@@ -657,17 +607,14 @@
       .style('stroke', 'var(--wave)').attr('stroke-width', 2).attr('stroke-dasharray', '3 2');
     g.append('line').attr('x1', (d) => x(num(d.tsunami_line))).attr('x2', (d) => x(num(d.tsunami_line))).attr('y1', -10).attr('y2', 10)
       .style('stroke', 'var(--tsunami)').attr('stroke-width', 2).attr('stroke-linecap', 'round');
-    g.filter((d) => projOf(d) !== null).append('circle').attr('cx', (d) => x(projOf(d))).attr('r', 5)
-      .style('fill', 'none').style('stroke', (d) => statusColor(R.projected.get(d.id).status)).attr('stroke-width', 2);
     g.filter((d) => num(d.dem_margin) !== null).append('circle').attr('cx', (d) => x(num(d.dem_margin))).attr('r', 6)
       .style('fill', (d) => statusColor(R.status.get(d.id))).style('stroke', 'var(--panel)').attr('stroke-width', 2);
     g.append('rect').attr('x', 0).attr('width', W).attr('y', -rowH / 2).attr('height', rowH).style('fill', 'transparent')
       .on('pointermove', (ev, d) => {
-        const now = num(d.dem_margin), p = R.projected.get(d.id);
+        const now = num(d.dem_margin);
         const lines = [];
         if (d.dem || d.rep) lines.push(`${d.dem || '?'} vs ${d.rep || '?'}`);
-        lines.push(now === null ? (p.projected !== null ? `No results yet; projected ${fmt(p.projected)}` : 'No results yet')
-          : `Now ${fmt(now)}${num(d.reporting) !== null ? `, ${pct(d.reporting)} counted` : ''}`);
+        lines.push(now === null ? 'No results yet' : `Now ${fmt(now)}${num(d.reporting) !== null ? `, ${pct(d.reporting)} counted` : ''}`);
         lines.push(`Wave line ${fmt(d.wave_line)}, tsunami line ${fmt(d.tsunami_line)}`, R.status.get(d.id));
         if (d.called_by) lines.push(`Called by ${d.called_by}`);
         tip.show(ev, d.race, lines);
@@ -678,21 +625,11 @@
   let R = null;
   function render() {
     if (!R) return;
-    setText('heading', R.forecast.heading);
-    setText('confidence', R.forecast.confidence);
-    setText('verdict', R.tally.verdict);
+    setText('verdict', R.tally.reported ? R.tally.verdict : 'waiting for results');
+    setText('cverdict', R.called.n ? R.called.verdict : 'nothing called yet');
     setText('sampled', R.sampledAt ? ct(R.sampledAt) : 'not yet');
-    const p = num(R.pace.pace), T = num(R.pace.tsunamiNeed) ?? 6;
-    document.getElementById('pace-figs').hidden = p === null;
-    document.getElementById('pace-wait').hidden = p !== null;
-    setText('pace', signed(p));
-    setText('pace-word', p === null ? '' : p >= T ? 'a tsunami' : p >= 0 ? 'a wave' : 'short of the polls');
-    setText('tneed', tick(T)); setText('tneed-a', tick(T)); setText('tneed-b', tick(T));
-    setText('counted', d3.format('.0%')(R.pace.bellwethers ? (R.pace.counted || 0) / R.pace.bellwethers : 0));
-    setText('calledn', `${R.forecast.calledN} of ${R.pace.bellwethers}`);
-    setText('early', R.forecast.earlyBelow);
-    const parts = [drawGauge, drawSenate, drawTrifecta, drawWisconsin, drawNext, drawHist, drawTables, drawLanes];
-    parts.forEach((f) => { try { f(R); } catch (e) { console.error(f.name, e); } });
+    [drawVerdict, drawSenate, drawTrifecta, drawWisconsin, drawNext, drawHist, drawTables, drawLanes]
+      .forEach((f) => { try { f(R); } catch (e) { console.error(f.name, e); } });
   }
 
   async function load() {

@@ -136,11 +136,12 @@
    "called_by": "",
    "bellwether": true,
    "benchmark": "Special election; final polls Moody +6.1 (FiftyPlusOne)",
-   "rule": "Competitive",
-   "wave_line": -6,
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
    "tsunami_line": 0,
    "order": 7,
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": -6.1
   },
   {
    "id": "FL-GOV",
@@ -154,9 +155,9 @@
    "base_2024": -13.1,
    "rating": "Lean R",
    "benchmark": "Open seat; final polls Donalds +4.6 (270toWin)",
-   "rule": "Competitive",
+   "rule": "Seat Trump carried comfortably",
    "wave_line": -5,
-   "tsunami_line": 1,
+   "tsunami_line": 0,
    "dem_margin": null,
    "reporting": null,
    "called_for": "",
@@ -182,10 +183,11 @@
    "bellwether": true,
    "benchmark": "Final polls Ossoff +9.6 (FiftyPlusOne)",
    "rule": "Competitive",
-   "wave_line": 10,
+   "wave_line": 0,
    "tsunami_line": 16,
    "order": 9,
-   "seat_now": "D"
+   "seat_now": "D",
+   "poll": 9.6
   },
   {
    "id": "GA-GOV",
@@ -227,10 +229,11 @@
    "bellwether": true,
    "benchmark": "Open seat; final polls Pappas +8.8 (FiftyPlusOne)",
    "rule": "Competitive",
-   "wave_line": 9,
+   "wave_line": 0,
    "tsunami_line": 15,
    "order": 11,
-   "seat_now": "D"
+   "seat_now": "D",
+   "poll": 8.8
   },
   {
    "id": "SC-SEN",
@@ -250,11 +253,12 @@
    "called_by": "",
    "bellwether": true,
    "benchmark": "Trump +18 in 2024; final polls tied (FiftyPlusOne)",
-   "rule": "Competitive",
-   "wave_line": 0,
-   "tsunami_line": 6,
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
+   "tsunami_line": 0,
    "order": 12,
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": 0.0
   },
   {
    "id": "VA-1",
@@ -286,7 +290,7 @@
    "office": "Senate",
    "benchmark": "Cooper by 6+ = good night (Bitzer, via CNN)",
    "rule": "Competitive",
-   "wave_line": 6,
+   "wave_line": 0,
    "tsunami_line": 12,
    "dem_margin": null,
    "reporting": null,
@@ -294,7 +298,8 @@
    "bellwether": true,
    "dem": "",
    "rep": "",
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": 11.6
   },
   {
    "id": "NC-1",
@@ -351,10 +356,11 @@
    "bellwether": true,
    "benchmark": "Special election; final polls Brown +2.9 (FiftyPlusOne)",
    "rule": "Competitive",
-   "wave_line": 3,
+   "wave_line": 0,
    "tsunami_line": 9,
    "order": 17,
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": 2.9
   },
   {
    "id": "ME-2",
@@ -393,10 +399,11 @@
    "bellwether": true,
    "benchmark": "Final polls Hamilton +4.5 (FiftyPlusOne)",
    "rule": "Competitive",
-   "wave_line": 5,
+   "wave_line": 0,
    "tsunami_line": 11,
    "order": 19,
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": 4.5
   },
   {
    "id": "ME-SEN",
@@ -417,10 +424,11 @@
    "bellwether": true,
    "benchmark": "Final polls Jackson +4.7 (FiftyPlusOne)",
    "rule": "Competitive",
-   "wave_line": 5,
+   "wave_line": 0,
    "tsunami_line": 11,
    "order": 20,
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": 4.7
   },
   {
    "id": "MI-10",
@@ -483,10 +491,11 @@
    "bellwether": true,
    "benchmark": "Open seat; final polls El-Sayed +5.4 (FiftyPlusOne)",
    "rule": "Competitive",
-   "wave_line": 5,
+   "wave_line": 0,
    "tsunami_line": 11,
    "order": 23,
-   "seat_now": "D"
+   "seat_now": "D",
+   "poll": 5.4
   },
   {
    "id": "MI-GOV",
@@ -501,7 +510,7 @@
    "rating": "Lean D",
    "benchmark": "Open seat; final polls Benson +8.9 (270toWin)",
    "rule": "Competitive",
-   "wave_line": 9,
+   "wave_line": 0,
    "tsunami_line": 15,
    "dem_margin": null,
    "reporting": null,
@@ -589,7 +598,8 @@
    "bellwether": true,
    "dem": "",
    "rep": "",
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": 3.7
   },
   {
    "id": "WI-GOV",
@@ -600,7 +610,7 @@
    "office": "Governor",
    "benchmark": "Final Marquette poll: Crowley +7",
    "rule": "Competitive",
-   "wave_line": 7,
+   "wave_line": 0,
    "tsunami_line": 13,
    "dem_margin": null,
    "reporting": null,
@@ -700,10 +710,11 @@
    "bellwether": true,
    "benchmark": "Open seat; final polls Turek +0.7 (FiftyPlusOne)",
    "rule": "Competitive",
-   "wave_line": 1,
+   "wave_line": 0,
    "tsunami_line": 7,
    "order": 34,
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": 0.7
   },
   {
    "id": "MN-2",
@@ -718,7 +729,7 @@
    "rating": "Likely D",
    "benchmark": "Open seat, Harris +5.8 in 2024; matching Harris = good night",
    "rule": "Competitive",
-   "wave_line": 6,
+   "wave_line": 0,
    "tsunami_line": 12,
    "dem_margin": null,
    "reporting": null,
@@ -745,10 +756,11 @@
    "bellwether": true,
    "benchmark": "Open seat; final polls Flanagan +6.2 (FiftyPlusOne)",
    "rule": "Competitive",
-   "wave_line": 6,
+   "wave_line": 0,
    "tsunami_line": 12,
    "order": 36,
-   "seat_now": "D"
+   "seat_now": "D",
+   "poll": 6.2
   },
   {
    "id": "MN-GOV",
@@ -763,7 +775,7 @@
    "rating": "Solid D",
    "benchmark": "Open seat; final polls Klobuchar +9 (Minnesota Poll, PollCheck)",
    "rule": "Competitive",
-   "wave_line": 9,
+   "wave_line": 0,
    "tsunami_line": 15,
    "dem_margin": null,
    "reporting": null,
@@ -789,11 +801,12 @@
    "called_by": "",
    "bellwether": true,
    "benchmark": "Independent Osborn vs Ricketts; final polls Ricketts +1.9 (FiftyPlusOne)",
-   "rule": "Competitive",
-   "wave_line": -2,
-   "tsunami_line": 4,
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
+   "tsunami_line": 0,
    "order": 38,
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": -1.9
   },
   {
    "id": "NV-2",
@@ -850,10 +863,11 @@
    "bellwether": true,
    "benchmark": "Final polls Peltola +2.4 (FiftyPlusOne); Alaska counts for days and may go to ranked choice",
    "rule": "Competitive",
-   "wave_line": 2,
+   "wave_line": 0,
    "tsunami_line": 8,
    "order": 41,
-   "seat_now": "R"
+   "seat_now": "R",
+   "poll": 2.4
   },
   {
    "id": "KY-SEN",

@@ -1,19 +1,11 @@
 /* Tsunami watch scoring rules. Shared by index.html (in the browser) and tools/apply.js (in node),
-   so the page and the sampler always agree on every status, the pace and the verdict. */
+   so the page and the sampler always agree on every status, count and verdict.
+   Black and white: each bellwether is a tsunami sign, a wave sign, short, or waiting, from its margin against its
+   two lines. A Democratic win is always at least a wave sign. No projections. */
 (function (root) {
-  const EARLY_BELOW = 3; // races' worth of votes counted before the heading stops being an early sign
   const REGIONS = ['East Coast', 'South', 'Midwest', 'Wisconsin', 'Minnesota', 'West'];
 
   const num = (v) => (v === null || v === undefined || v === '' || !Number.isFinite(Number(v)) ? null : Number(v));
-  const clamp01 = (v) => Math.max(0, Math.min(1, v));
-  const round1 = (v) => (v === null ? null : Math.round(v * 10) / 10);
-
-  // Share of a race's vote counted, 0 to 1. A race with a margin but no share yet counts as half.
-  const share = (r) => {
-    const p = num(r.reporting);
-    if (p !== null) return clamp01(p / 100);
-    return r.called_for ? 1 : 0.5;
-  };
 
   const statusOf = (m, wl, tl) => (m === null ? 'Waiting' : m >= tl ? 'Tsunami sign' : m >= wl ? 'Wave sign' : 'Short of wave');
 
@@ -32,98 +24,68 @@
     return { tsunami: n('Tsunami sign'), wave: n('Wave sign'), short: n('Short of wave'), waiting: n('Waiting') };
   };
 
+  // Which side a race favors right now: the call if there is one, else the leader in the count.
+  const sideNowOf = (r) => {
+    if (r.called_for) return r.called_for;
+    const m = num(r.dem_margin);
+    if (m === null || m === 0) return null;
+    return m > 0 ? (r.dem_party === 'I' ? 'I' : 'D') : 'R';
+  };
+
   function compute(data) {
     const races = (data && data.races) || [];
     const chambers = (data && data.chambers) || [];
     const samples = (data && data.samples) || [];
     const bw = races.filter((r) => r.bellwether === true).sort((a, b) => num(a.order) - num(b.order));
 
-    // Status of each bellwether on the current count.
+    // Counting so far: every bellwether with results, on its current count.
     const status = new Map(bw.map((r) => [r.id, statusOf(num(r.dem_margin), num(r.wave_line), num(r.tsunami_line))]));
     const tally = { ...countStatuses([...status.values()]), verdict: verdictOf([...status.values()]) };
     tally.reported = tally.tsunami + tally.wave + tally.short;
+
+    // Called so far: only races a decision desk has called, on the count at the call.
+    const calledRaces = bw.filter((r) => r.called_for && num(r.dem_margin) !== null);
+    const calledStatuses = calledRaces.map((r) => status.get(r.id));
+    const called = { ...countStatuses(calledStatuses), n: calledRaces.length, verdict: verdictOf(calledStatuses) };
+
     const regions = REGIONS.filter((g) => bw.some((r) => r.region === g))
       .map((region) => ({ region, ...countStatuses(bw.filter((r) => r.region === region).map((r) => status.get(r.id))) }));
 
-    // Tonight's pace: points past the wave line, weighted by share counted.
-    let sw = 0, sx = 0, reported = 0;
-    bw.forEach((r) => {
-      const m = num(r.dem_margin);
-      if (m === null) return;
-      reported += 1;
-      sw += share(r);
-      sx += share(r) * (m - num(r.wave_line));
-    });
-    const pace = sw > 0 ? round1(sx / sw) : null;
-    // Under a uniform pace, half the bellwethers reach their tsunami line once the pace passes this gap.
-    const gaps = bw.map((r) => num(r.tsunami_line) - num(r.wave_line)).sort((a, b) => a - b);
-    const tsunamiNeed = gaps.length ? gaps[Math.ceil(gaps.length / 2) - 1] : null;
-
-    // Projection: the count so far, filled out at tonight's pace for the rest of the vote.
-    const projectOf = (r) => {
-      const m = num(r.dem_margin);
-      const fill = pace === null || num(r.wave_line) === null ? null : num(r.wave_line) + pace;
-      if (m === null) return fill;
-      if (fill === null) return m;
-      const p = share(r);
-      return p * m + (1 - p) * fill;
-    };
-    const projected = new Map(bw.map((r) => {
-      const pm = projectOf(r);
-      const m = num(r.dem_margin);
-      return [r.id, {
-        projected: round1(pm),
-        status: statusOf(pm, num(r.wave_line), num(r.tsunami_line)),
-        pastWave: m === null ? null : round1(m - num(r.wave_line))
-      }];
-    }));
-    const heading = verdictOf([...projected.values()].map((p) => p.status));
-    const called = bw.filter((r) => r.called_for && num(r.dem_margin) !== null);
-    const calledVerdict = verdictOf(called.map((r) => status.get(r.id)));
-    const counted = round1(sw);
-    const confidence = sw === 0 ? 'no votes counted yet'
-      : called.length * 2 >= bw.length && calledVerdict === heading ? 'confirmed'
-      : sw < EARLY_BELOW ? 'early signs'
-      : 'firming up';
-
-    // Senate path.
+    // Senate path: called or leading, toward the hope.
     const us = chambers.find((c) => c.id === 'US-SEN') || {};
     const notUpD = num(us.not_up_d) || 0;
     const target = num(us.target) || 53;
     const need = target - notUpD;
     const senRows = races.filter((r) => r.office === 'Senate').map((r) => {
-      const left = r.dem_party === 'I' ? 'I' : 'D';
-      const side = (v) => (v > 0 ? left : v < 0 ? 'R' : null);
       const m = num(r.dem_margin);
-      const pm = r.bellwether === true ? projectOf(r) : m;
-      const kind = r.called_for ? 'called' : m !== null ? 'leading' : pm !== null ? 'projected' : 'waiting';
-      const sideNow = r.called_for || (m !== null ? side(m) : null);
-      const sideProj = r.called_for || (pm !== null ? side(pm) : r.favored || null);
-      const strength = sideProj === 'I' ? -2000
-        : kind === 'called' ? (sideProj === 'D' ? 1000 : -1000) + (m || 0)
-        : pm !== null ? pm
-        : sideProj === 'D' ? 500 : sideProj === 'R' ? -500 : 0;
-      return { id: r.id, state: String(r.id).split('-')[0], race: r, kind, sideNow, sideProj, margin: m, projected: round1(pm), strength };
+      const sideNow = sideNowOf(r);
+      const kind = r.called_for ? 'called' : m !== null ? 'leading' : 'waiting';
+      // Order: called Democratic seats, then the count, then waiting races by their final polls or ratings.
+      const lean = num(r.poll) !== null ? num(r.poll) : r.favored === 'D' ? 30 : r.favored === 'R' ? -30 : 0;
+      const strength = sideNow === 'I' || (kind === 'waiting' && r.dem_party === 'I') ? -2000
+        : kind === 'called' ? (sideNow === 'D' ? 1000 : -1000) + (m || 0)
+        : kind === 'leading' ? m
+        : lean;
+      return { id: r.id, state: String(r.id).split('-')[0], race: r, kind, sideNow, margin: m, strength };
     }).sort((a, b) => b.strength - a.strength).map((r, i) => ({ ...r, rank: i + 1, pivot: i + 1 === need }));
     const cnt = (f) => senRows.filter(f).length;
-    const calledD = cnt((r) => r.kind === 'called' && r.sideNow === 'D');
-    const leadD = cnt((r) => r.kind === 'leading' && r.sideNow === 'D');
     const dHeld = senRows.filter((r) => r.race.seat_now === 'D');
     const rHeld = senRows.filter((r) => r.race.seat_now === 'R');
     const senate = {
       rows: senRows,
       notUpD, target, need, up: senRows.length,
-      calledD, leadD,
+      calledD: cnt((r) => r.kind === 'called' && r.sideNow === 'D'),
+      leadD: cnt((r) => r.kind === 'leading' && r.sideNow === 'D'),
+      calledR: cnt((r) => r.kind === 'called' && r.sideNow === 'R'),
       dHeldN: dHeld.length,
       holds: dHeld.filter((r) => r.sideNow === 'D').length,
       lost: dHeld.filter((r) => r.sideNow && r.sideNow !== 'D').length,
       flipsNeeded: Math.max(0, need - dHeld.length),
       flips: rHeld.filter((r) => r.sideNow === 'D').length,
-      flipRows: rHeld.filter((r) => r.race.bellwether === true),
-      calledR: cnt((r) => r.kind === 'called' && r.sideNow === 'R'),
-      nowD: notUpD + calledD + leadD,
-      projectedD: notUpD + cnt((r) => r.sideProj === 'D')
+      flipRows: rHeld.filter((r) => r.race.bellwether === true)
     };
+    senate.nowD = notUpD + senate.calledD + senate.leadD;
+    senate.calledTotalD = notUpD + senate.calledD;
 
     // Wisconsin trifecta.
     const fm = (v) => (v === 0 ? 'Even' : (v > 0 ? 'D+' : 'R+') + Math.round(Math.abs(v) * 10) / 10);
@@ -131,12 +93,10 @@
     const gov = races.find((r) => r.id === 'WI-GOV');
     if (gov) {
       const m = num(gov.dem_margin), p = num(gov.reporting);
-      const pg = projected.get('WI-GOV');
-      const pm = pg ? pg.projected : null;
       let st, detail;
       if (gov.called_for === 'D') { st = 'Democrats won'; detail = `${gov.dem || 'The Democrat'} wins, called by ${gov.called_by || 'a decision desk'}`; }
       else if (gov.called_for === 'R') { st = 'Republicans won'; detail = `${gov.rep || 'The Republican'} wins, called by ${gov.called_by || 'a decision desk'}`; }
-      else if (m === null) { st = 'Waiting'; detail = pm === null ? `Polls close at ${gov.closes_ct} Central` : `Projected ${fm(pm)} at tonight's pace`; }
+      else if (m === null) { st = 'Waiting'; detail = `Polls close at ${gov.closes_ct} Central`; }
       else { st = m > 0 ? 'Democrats ahead' : m < 0 ? 'Republicans ahead' : 'Too close'; detail = `${fm(m)} with ${p === null ? 'some of the vote' : Math.round(p) + '%'} counted`; }
       parts.push({ part: 'gov', name: 'Governor', status: st, detail });
     }
@@ -148,10 +108,7 @@
       const seats = races.filter((r) => r.office === office).sort((a, b) => num(a.order) - num(b.order));
       wiSeats[part] = seats;
       const won = (s) => seats.filter((r) => r.called_for === s).length;
-      const lead = (s) => seats.filter((r) => {
-        const m = num(r.dem_margin);
-        return !r.called_for && m !== null && (s === 'D' ? m > 0 : m < 0);
-      }).length;
+      const lead = (s) => seats.filter((r) => !r.called_for && sideNowOf(r) === s).length;
       const maj = num(c.majority) || 0, safeD = num(c.safe_d) || 0, safeR = num(c.safe_r) || 0;
       const dSure = safeD + won('D'), rSure = safeR + won('R');
       const dNow = dSure + lead('D'), rNow = rSure + lead('R');
@@ -174,37 +131,34 @@
       : sts.every((s) => s === 'Democrats won' || s === 'Democrats ahead') ? 'on track'
       : sts.every((s) => s === 'Waiting') ? 'waiting for results'
       : 'not yet';
-    const trifecta = { parts, all, seats: wiSeats, ballot: races.filter((r) => r.office === 'WI AG' || r.office === 'WI Question').sort((a, b) => num(a.order) - num(b.order)) };
+    const ballot = races.filter((r) => r.office === 'WI AG' || r.office === 'WI Question').sort((a, b) => num(a.order) - num(b.order));
+    const trifecta = { parts, all, seats: wiSeats, ballot };
 
-    // Pace at each sample, from the latest count each race had at that time.
-    const waveOf = new Map(bw.map((r) => [r.id, num(r.wave_line)]));
+    // Signs through the night: the status counts at each sample, from the latest count each race had then.
+    const lines = new Map(bw.map((r) => [r.id, [num(r.wave_line), num(r.tsunami_line)]]));
     const sorted = samples.filter((s) => s.at).sort((a, b) => (a.at < b.at ? -1 : a.at > b.at ? 1 : 0));
     const times = [...new Set(sorted.map((s) => s.at))];
     const latest = new Map();
     let i = 0;
     const history = times.map((t) => {
       while (i < sorted.length && sorted[i].at <= t) { latest.set(sorted[i].id, sorted[i]); i += 1; }
-      let w = 0, x = 0;
+      const st = [];
       latest.forEach((s, id) => {
-        const m = num(s.dem_margin);
-        if (!waveOf.has(id) || m === null) return;
-        const sh = share(s);
-        w += sh;
-        x += sh * (m - waveOf.get(id));
+        if (!lines.has(id)) return;
+        const [wl, tl] = lines.get(id);
+        st.push(statusOf(num(s.dem_margin), wl, tl));
       });
-      return { at: t, pace: w > 0 ? round1(x / w) : null, counted: round1(w) };
+      const c = countStatuses(st);
+      return { at: t, tsunami: c.tsunami, wave: c.wave, short: c.short, verdict: verdictOf(st) };
     });
 
     return {
-      bw, status, tally, regions, projected,
-      pace: { pace, counted, reported, bellwethers: bw.length, tsunamiNeed },
-      forecast: { heading, confidence, calledN: called.length, calledVerdict, earlyBelow: EARLY_BELOW },
-      senate, trifecta, history,
+      bw, status, tally, called, regions, senate, trifecta, history,
       sampledAt: (data && data.sampled_at) || null
     };
   }
 
-  const api = { compute, num, EARLY_BELOW };
+  const api = { compute, num, statusOf };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.TW = api;
 })(typeof window !== 'undefined' ? window : globalThis);

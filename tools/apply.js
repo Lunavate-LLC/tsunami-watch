@@ -55,7 +55,6 @@ data.races.forEach((r) => {
 });
 
 const after = TW.compute(data);
-const signed = (v) => (v === null ? 'none yet' : (v >= 0 ? '+' : '-') + Math.abs(v).toFixed(1));
 const fm = (v) => (v === null || v === undefined ? 'none' : v === 0 ? 'Even' : (v > 0 ? 'D+' : 'R+') + Math.abs(v).toFixed(1));
 
 const newCalls = data.races.filter((r) => r.called_for && !(oldRaces.get(r.id) || {}).called_for);
@@ -67,22 +66,21 @@ const moves = data.races.map((r) => {
 }).filter((m) => m.d !== 0).sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
 
 const lines = [
-  `Heading: ${before.forecast.heading} -> ${after.forecast.heading} (${after.forecast.confidence})`,
-  `So far: ${before.tally.verdict} -> ${after.tally.verdict} (${after.tally.tsunami} tsunami, ${after.tally.wave} wave, ${after.tally.short} short, ${after.tally.waiting} waiting)`,
-  `Pace: ${signed(before.pace.pace)} -> ${signed(after.pace.pace)} (tsunami from ${signed(after.pace.tsunamiNeed)}, ${after.pace.counted} races' worth counted)`,
-  `Senate: ${after.senate.nowD} called or leading, ${after.senate.projectedD} projected (was ${before.senate.projectedD}), hope ${after.senate.target}`,
+  `Counting: ${before.tally.verdict} -> ${after.tally.verdict} (${after.tally.tsunami} tsunami, ${after.tally.wave} wave, ${after.tally.short} short, ${after.tally.waiting} waiting)`,
+  `Called: ${before.called.verdict} -> ${after.called.verdict} (${after.called.n} called: ${after.called.tsunami} tsunami, ${after.called.wave} wave, ${after.called.short} short)`,
+  `Senate: ${after.senate.nowD} called or leading (was ${before.senate.nowD}), ${after.senate.calledTotalD} called, hope ${after.senate.target}`,
   `WI trifecta: ${before.trifecta.all} -> ${after.trifecta.all}`,
   ...newCalls.map((r) => `Called: ${r.race} for ${r.called_for} by ${r.called_by}`),
   ...moves.slice(0, 6).map((m) => `${m.r.race}: ${m.o === null ? 'first results' : fm(m.o)} -> ${fm(m.n)}${TW.num(m.r.reporting) !== null ? ` (${m.r.reporting}% counted)` : ''}`)
 ];
 
 const alert = calls.length > 0
-  || before.forecast.heading !== after.forecast.heading
   || before.tally.verdict !== after.tally.verdict
+  || before.called.verdict !== after.called.verdict
   || before.trifecta.all !== after.trifecta.all;
 const callText = calls.length ? ` Called: ${calls.map((r) => `${r.id} ${r.called_for}`).join(', ')}.` : '';
 const text = alert
-  ? `Tsunami watch: heading for ${after.forecast.heading} (${after.forecast.confidence}), pace ${signed(after.pace.pace)}.${callText} Senate ${after.senate.projectedD} projected. WI trifecta ${after.trifecta.all}.`
+  ? `Tsunami watch: counting says ${after.tally.verdict}, called says ${after.called.verdict}.${callText} Senate D ${after.senate.nowD} called or leading. WI trifecta ${after.trifecta.all}.`
   : null;
 
 if (!dry) fs.writeFileSync(dataPath, JSON.stringify(data, null, 1) + '\n');
