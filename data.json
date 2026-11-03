@@ -299,11 +299,13 @@
    "reporting": null,
    "called_by": "",
    "bellwether": true,
-   "dem": "",
-   "rep": "",
+   "dem": "Roy Cooper",
+   "rep": "Michael Whatley",
    "seat_now": "R",
    "poll": 11.6,
-   "rating": "Likely D"
+   "rating": "Likely D",
+   "base_2024": -3.2,
+   "dem_party": "D"
   },
   {
    "id": "NC-1",
@@ -603,11 +605,13 @@
    "reporting": null,
    "called_by": "",
    "bellwether": true,
-   "dem": "",
-   "rep": "",
+   "dem": "James Talarico",
+   "rep": "Ken Paxton",
    "seat_now": "R",
    "poll": 3.7,
-   "rating": "Toss-up"
+   "rating": "Toss-up",
+   "base_2024": -13.7,
+   "dem_party": "D"
   },
   {
    "id": "WI-GOV",
