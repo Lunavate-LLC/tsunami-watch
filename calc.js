@@ -86,6 +86,15 @@
     };
     senate.nowD = notUpD + senate.calledD + senate.leadD;
     senate.calledTotalD = notUpD + senate.calledD;
+    senate.leadR = cnt((r) => r.kind === 'leading' && r.sideNow === 'R');
+    senate.ind = cnt((r) => r.sideNow === 'I');
+    senate.waiting = senate.up - senate.calledD - senate.leadD - senate.calledR - senate.leadR - senate.ind;
+    senate.waveAt = num(us.wave_at) || 51;
+    senate.tsunamiAt = num(us.tsunami_at) || 54;
+    // The Senate read: tsunami at 54+, wave at a majority, short below it.
+    const tier = (n) => (n >= senate.tsunamiAt ? 'tsunami' : n >= senate.waveAt ? 'wave' : 'short of the wave');
+    senate.nowTier = tier(senate.nowD);
+    senate.calledTier = tier(senate.calledTotalD);
 
     // Wisconsin trifecta.
     const fm = (v) => (v === 0 ? 'Even' : (v > 0 ? 'D+' : 'R+') + Math.round(Math.abs(v) * 10) / 10);

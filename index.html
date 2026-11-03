@@ -53,6 +53,7 @@
   .tw-reads { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 14px; }
   .tw-read { border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: grid; gap: 6px; align-content: start; }
   .tw-read-label { font-size: .8rem; color: var(--muted); }
+  .tw-fig-word { font-size: .9rem; font-weight: 600; }
   .tw-big { font-family: var(--serif); font-weight: 400; font-size: 2.6rem; line-height: 1.05; }
   .tw-num { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; line-height: 1.05; font-variant-numeric: tabular-nums; }
   .tw-counts { font-size: .95rem; font-variant-numeric: tabular-nums; }
@@ -120,8 +121,8 @@
     <h2>The verdict</h2>
     <p class="tw-line">Each of the <span id="n-bw">41</span> bellwether races is a tsunami sign, a wave sign, or short of the wave:</p>
     <ul class="tw-rules">
-      <li><b>Toss-ups and leans</b> (Maine, Texas, Virginia's 2nd): a Democratic win is a wave sign. Winning by 6 or more past the final poll is a tsunami sign. A loss is short.</li>
-      <li><b>Trump seats</b> (Kentucky's 6th, South Carolina, Florida): a Democrat within 5 is a wave sign. A Democratic win is a tsunami sign.</li>
+      <li><b>Wave seats</b>, the battlegrounds a good night wins (North Carolina, Georgia, Michigan, Virginia's 2nd): a Democratic win is a wave sign. Winning by 6 or more past the final poll is a tsunami sign. A loss is short.</li>
+      <li><b>Tsunami seats</b>, the ones a good night shouldn't win (Maine, Ohio, Texas, South Carolina, anything in Florida, Louisiana, Kentucky's 6th): a Democrat within 5 is a wave sign. A Democratic win is a tsunami sign.</li>
       <li><b>The verdict:</b> if half or more are tsunami signs, it's tsunami pace. If half or more are wave or tsunami signs, it's wave pace. Anything less is short of the wave.</li>
     </ul>
     <p class="tw-wait" id="wait">Waiting for the first results at 5:00 pm Central.</p>
@@ -157,13 +158,15 @@
         <li><b>Hold all <span id="s-dheld">—</span> Democratic seats.</b> <span id="s-holds-line" class="tw-note-inline">—</span></li>
         <li><b>Flip <span id="s-flipsneeded">—</span> Republican seats.</b> <span id="s-flips-line" class="tw-note-inline">—</span></li>
       </ul>
-      <p class="tw-note">The likeliest flips by the final polls: North Carolina, Maine, Kansas, Texas, Ohio, Alaska and Iowa, with South Carolina tied.</p>
+      <p class="tw-note">North Carolina is the only wave-seat flip on the map. Every other flip is a tsunami seat: Maine, Ohio, Texas, Iowa, Kansas, Alaska, South Carolina, Florida, Nebraska and Louisiana.</p>
       <div class="tw-chips" id="s-flipchips"></div>
+      <p class="tw-line"><b>The Senate read:</b> 54 or more seats is a tsunami, a 51 to 53 seat majority is a wave, and 50 or fewer is short.</p>
       <div class="tw-figs">
-        <div class="tw-fig"><span class="tw-fig-label">Democratic seats, called or leading</span><b class="tw-big" id="s-now">—</b></div>
-        <div class="tw-fig"><span class="tw-fig-label">Called so far</span><b class="tw-big" id="s-called">—</b></div>
-        <div class="tw-fig"><span class="tw-fig-label">The hope</span><b class="tw-num" id="s-target">—</b></div>
+        <div class="tw-fig"><span class="tw-fig-label">Democratic seats, called or leading</span><b class="tw-big" id="s-now">—</b><span class="tw-fig-word" id="s-now-tier">—</span></div>
+        <div class="tw-fig"><span class="tw-fig-label">Called so far</span><b class="tw-big" id="s-called">—</b><span class="tw-fig-word" id="s-called-tier">—</span></div>
+        <div class="tw-fig"><span class="tw-fig-label">Your group's hope</span><b class="tw-num" id="s-target">—</b></div>
       </div>
+      <div class="tw-chart" id="seatbar"></div>
       <div class="tw-sen" id="senate"></div>
       <ul class="tw-legend">
         <li><i class="tw-key" data-key="called"></i>Called (&#10003;)</li>
@@ -255,8 +258,9 @@
 
   <section class="tw-card tw-method">
     <h2>How the lines are set</h2>
-    <p>Toss-ups and leans: the wave line is a Democratic win. The tsunami line is 6 points past the final poll or the analysts' marker, about the size of Marquette's biggest final-poll miss since 2016. That line is our own working line, not a forecaster's.</p>
-    <p>Seats Trump carried comfortably, and Republican-leaning statewide races: a Democrat within 5 is a wave sign and a Democratic win is a tsunami sign, following the early-race guides from NPR and Daily Kos.</p>
+    <p>Wave seats are the battlegrounds a good Democratic night wins. The wave line is a Democratic win. The tsunami line is 6 points past the final poll or the analysts' marker, about the size of Marquette's biggest final-poll miss since 2016. That line is our own working line, not a forecaster's.</p>
+    <p>Tsunami seats are the ones a good night shouldn't win: seats Trump carried comfortably, statewide races in Trump +10 states, and Collins's Maine. A Democrat within 5 is a wave sign and a Democratic win is a tsunami sign, following the early-race guides from NPR and Daily Kos.</p>
+    <p>The Senate read counts Democratic seats: 34 not up this year plus the races called for them or led by them. 54 or more is a tsunami, a 51 to 53 seat majority is a wave, and 50 or fewer is short.</p>
     <p>The counting read uses every race with votes in, so it comes first and can drift. The called read uses only races a decision desk has called, so it comes later and doesn't move.</p>
   </section>
 
@@ -364,6 +368,10 @@
     setText('s-flips-line', anyResults ? `${s.flips} of ${s.flipsNeeded} so far (called or leading).` : 'No results yet.');
     document.getElementById('s-flipchips').replaceChildren(...s.flipRows.map((d) => chip(d.state, d.race)));
     setText('s-now', s.nowD); setText('s-called', s.calledTotalD); setText('s-target', s.target);
+    const lockedIn = (n) => (n >= s.tsunamiAt ? 'tsunami locked in' : n >= s.waveAt ? `majority locked in, ${s.tsunamiAt - n} more to a tsunami` : `${s.waveAt - n} more to a majority`);
+    setText('s-now-tier', !anyResults ? '' : s.waiting > 0 ? `${s.waiting} races with no results yet` : `${s.nowTier} if every lead holds`);
+    setText('s-called-tier', s.calledD + s.calledR ? lockedIn(s.calledTotalD) : '');
+    drawSeatBar(s);
     const el = document.getElementById('senate');
     el.replaceChildren();
     const tip = makeTip(el);
@@ -392,6 +400,41 @@
       tile.addEventListener('pointerleave', () => tip.hide());
       el.appendChild(tile);
     });
+  }
+
+  // The race to 54: Democratic seats fill from the left, Republican calls from the right, uncalled races in between.
+  function drawSeatBar(s) {
+    const el = document.getElementById('seatbar');
+    el.replaceChildren();
+    const lo = s.notUpD, hi = s.notUpD + s.up;
+    const W = Math.max(280, el.clientWidth || 600), H = 74, left = 4, right = 4, barY = 22, barH = 20;
+    const x = d3.scaleLinear([lo, hi], [left, W - right]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('role', 'img').attr('aria-label', 'Democratic Senate seats called and leading against 51, 53 and 54');
+    const segs = [
+      [s.calledD, 'var(--dem)', 1], [s.leadD, 'var(--dem)', 0.35], [s.waiting, 'var(--grid)', 1],
+      [s.ind, 'var(--ind)', 0.5], [s.leadR, 'var(--rep)', 0.35], [s.calledR, 'var(--rep)', 1]
+    ];
+    let at = lo;
+    segs.forEach(([n, c, op]) => {
+      if (n <= 0) return;
+      svg.append('rect').attr('x', x(at)).attr('width', Math.max(0, x(at + n) - x(at))).attr('y', barY).attr('height', barH)
+        .style('fill', c).style('opacity', op);
+      at += n;
+    });
+    svg.append('rect').attr('x', left).attr('width', W - left - right).attr('y', barY).attr('height', barH).attr('rx', 3)
+      .style('fill', 'none').style('stroke', 'var(--line)');
+    // 51 labels to the left of its mark, 54 to the right, 53 above, so the three never collide.
+    [[s.waveAt, 'Majority 51', 'below', 'end'], [s.target, 'Hope 53', 'above', 'middle'], [s.tsunamiAt, 'Tsunami 54', 'below', 'start']].forEach(([v, label, pos, anchor]) => {
+      if (v < lo || v > hi) return;
+      const xv = x(v - 0.5);
+      svg.append('line').attr('x1', xv).attr('x2', xv).attr('y1', barY - 4).attr('y2', barY + barH + 4)
+        .style('stroke', 'var(--fg)').attr('stroke-width', 2);
+      svg.append('text').attr('x', anchor === 'end' ? xv - 3 : anchor === 'start' ? xv + 3 : xv)
+        .attr('y', pos === 'above' ? barY - 8 : barY + barH + 18).attr('text-anchor', anchor)
+        .style('fill', 'var(--fg)').style('font-size', '12px').style('font-weight', '600').text(label);
+    });
+    svg.append('text').attr('x', left).attr('y', barY - 8).style('fill', 'var(--muted)').style('font-size', '12px').text(`${lo} not up`);
   }
 
   function drawTrifecta(R) {

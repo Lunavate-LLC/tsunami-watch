@@ -355,9 +355,9 @@
    "called_by": "",
    "bellwether": true,
    "benchmark": "Special election; final polls Brown +2.9 (FiftyPlusOne)",
-   "rule": "Competitive",
-   "wave_line": 0,
-   "tsunami_line": 9,
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
+   "tsunami_line": 0,
    "order": 17,
    "seat_now": "R",
    "poll": 2.9
@@ -398,9 +398,9 @@
    "called_by": "",
    "bellwether": true,
    "benchmark": "Final polls Hamilton +4.5 (FiftyPlusOne)",
-   "rule": "Competitive",
-   "wave_line": 0,
-   "tsunami_line": 11,
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
+   "tsunami_line": 0,
    "order": 19,
    "seat_now": "R",
    "poll": 4.5
@@ -422,10 +422,10 @@
    "called_for": "",
    "called_by": "",
    "bellwether": true,
-   "benchmark": "Final polls Jackson +4.7 (FiftyPlusOne)",
-   "rule": "Competitive",
-   "wave_line": 0,
-   "tsunami_line": 11,
+   "benchmark": "Collins's seat; final polls Jackson +4.7 (FiftyPlusOne)",
+   "rule": "Tough seat for Democrats",
+   "wave_line": -5,
+   "tsunami_line": 0,
    "order": 20,
    "seat_now": "R",
    "poll": 4.7
@@ -589,9 +589,9 @@
    "race": "Texas Senate",
    "office": "Senate",
    "benchmark": "Toss-up (Cook)",
-   "rule": "Competitive",
-   "wave_line": 0,
-   "tsunami_line": 6,
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
+   "tsunami_line": 0,
    "dem_margin": null,
    "reporting": null,
    "called_by": "",
@@ -709,9 +709,9 @@
    "called_by": "",
    "bellwether": true,
    "benchmark": "Open seat; final polls Turek +0.7 (FiftyPlusOne)",
-   "rule": "Competitive",
-   "wave_line": 0,
-   "tsunami_line": 7,
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
+   "tsunami_line": 0,
    "order": 34,
    "seat_now": "R",
    "poll": 0.7
@@ -809,8 +809,32 @@
    "poll": -1.9
   },
   {
-   "id": "NV-2",
+   "id": "LA-SEN",
+   "closes_ct": "8:00 pm",
+   "region": "South",
+   "race": "Louisiana Senate",
+   "office": "Senate",
+   "dem": "Jamie Davis",
+   "rep": "Julia Letlow",
+   "dem_party": "D",
+   "base_2024": -22.0,
+   "rating": "Solid R",
+   "favored": "R",
+   "dem_margin": null,
+   "reporting": null,
+   "called_for": "",
+   "called_by": "",
+   "bellwether": true,
+   "benchmark": "Trump +22 in 2024; a Democratic win would be a wipe-out",
    "order": 39,
+   "seat_now": "R",
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
+   "tsunami_line": 0
+  },
+  {
+   "id": "NV-2",
+   "order": 40,
    "closes_ct": "9:00 pm",
    "region": "West",
    "race": "Nevada 2nd District",
@@ -828,7 +852,7 @@
   },
   {
    "id": "CA-22",
-   "order": 40,
+   "order": 41,
    "closes_ct": "10:00 pm",
    "region": "West",
    "race": "California 22nd District",
@@ -862,10 +886,10 @@
    "called_by": "",
    "bellwether": true,
    "benchmark": "Final polls Peltola +2.4 (FiftyPlusOne); Alaska counts for days and may go to ranked choice",
-   "rule": "Competitive",
-   "wave_line": 0,
-   "tsunami_line": 8,
-   "order": 41,
+   "rule": "Seat Trump carried comfortably",
+   "wave_line": -5,
+   "tsunami_line": 0,
+   "order": 42,
    "seat_now": "R",
    "poll": 2.4
   },
@@ -1185,27 +1209,6 @@
    "seat_now": "D"
   },
   {
-   "id": "LA-SEN",
-   "closes_ct": "8:00 pm",
-   "region": "South",
-   "race": "Louisiana Senate",
-   "office": "Senate",
-   "dem": "Jamie Davis",
-   "rep": "Julia Letlow",
-   "dem_party": "D",
-   "base_2024": -22.0,
-   "rating": "Solid R",
-   "favored": "R",
-   "dem_margin": null,
-   "reporting": null,
-   "called_for": "",
-   "called_by": "",
-   "bellwether": false,
-   "benchmark": "Solid R; Trump +22.0 in 2024",
-   "order": 215,
-   "seat_now": "R"
-  },
-  {
    "id": "NM-SEN",
    "closes_ct": "8:00 pm",
    "region": "West",
@@ -1223,7 +1226,7 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +6.0 in 2024",
-   "order": 216,
+   "order": 215,
    "seat_now": "D"
   },
   {
@@ -1244,7 +1247,7 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +45.8 in 2024",
-   "order": 217,
+   "order": 216,
    "seat_now": "R"
   },
   {
@@ -1265,7 +1268,7 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +36.5 in 2024",
-   "order": 218,
+   "order": 217,
    "seat_now": "R"
   },
   {
@@ -1286,7 +1289,7 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +19.9 in 2024",
-   "order": 219,
+   "order": 218,
    "seat_now": "R"
   },
   {
@@ -1307,7 +1310,7 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +14.3 in 2024",
-   "order": 220,
+   "order": 219,
    "seat_now": "D"
   },
   {
@@ -1694,7 +1697,9 @@
    "target": 53,
    "not_up_d": 34,
    "not_up_r": 31,
-   "note": "Democrats and the independents who caucus with them hold 34 seats not up in 2026; Republicans hold 31."
+   "note": "Democrats and the independents who caucus with them hold 34 seats not up in 2026; Republicans hold 31. Senate read: 54 or more is a tsunami, 51 to 53 (a majority) is a wave, 50 or fewer is short.",
+   "wave_at": 51,
+   "tsunami_at": 54
   },
   {
    "id": "WI-SEN",

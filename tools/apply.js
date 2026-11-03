@@ -68,7 +68,7 @@ const moves = data.races.map((r) => {
 const lines = [
   `Counting: ${before.tally.verdict} -> ${after.tally.verdict} (${after.tally.tsunami} tsunami, ${after.tally.wave} wave, ${after.tally.short} short, ${after.tally.waiting} waiting)`,
   `Called: ${before.called.verdict} -> ${after.called.verdict} (${after.called.n} called: ${after.called.tsunami} tsunami, ${after.called.wave} wave, ${after.called.short} short)`,
-  `Senate: ${after.senate.nowD} called or leading (was ${before.senate.nowD}), ${after.senate.calledTotalD} called, hope ${after.senate.target}`,
+  `Senate: ${after.senate.nowD} called or leading (was ${before.senate.nowD}), ${after.senate.calledTotalD} called (${after.senate.calledTier}), hope ${after.senate.target}`,
   `WI trifecta: ${before.trifecta.all} -> ${after.trifecta.all}`,
   ...newCalls.map((r) => `Called: ${r.race} for ${r.called_for} by ${r.called_by}`),
   ...moves.slice(0, 6).map((m) => `${m.r.race}: ${m.o === null ? 'first results' : fm(m.o)} -> ${fm(m.n)}${TW.num(m.r.reporting) !== null ? ` (${m.r.reporting}% counted)` : ''}`)
@@ -77,10 +77,11 @@ const lines = [
 const alert = calls.length > 0
   || before.tally.verdict !== after.tally.verdict
   || before.called.verdict !== after.called.verdict
-  || before.trifecta.all !== after.trifecta.all;
+  || before.trifecta.all !== after.trifecta.all
+  || (after.senate.calledD + after.senate.calledR > 0 && before.senate.calledTier !== after.senate.calledTier);
 const callText = calls.length ? ` Called: ${calls.map((r) => `${r.id} ${r.called_for}`).join(', ')}.` : '';
 const text = alert
-  ? `Tsunami watch: counting says ${after.tally.verdict}, called says ${after.called.verdict}.${callText} Senate D ${after.senate.nowD} called or leading. WI trifecta ${after.trifecta.all}.`
+  ? `Tsunami watch: counting says ${after.tally.verdict}, called says ${after.called.verdict}.${callText} Senate D ${after.senate.calledTotalD} called, ${after.senate.nowD} with leads. WI trifecta ${after.trifecta.all}.`
   : null;
 
 if (!dry) fs.writeFileSync(dataPath, JSON.stringify(data, null, 1) + '\n');
