@@ -106,7 +106,7 @@
     senate.waiting = senate.up - senate.calledD - senate.leadD - senate.calledR - senate.leadR - senate.ind;
     senate.waveAt = num(us.wave_at) || 51;
     senate.tsunamiAt = num(us.tsunami_at) || 53;
-    // The Senate read: tsunami at 54+, wave at a majority, short below it.
+    // The Senate read: tsunami at the tsunami mark (53), wave at a majority, short below it.
     const tier = (n) => (n >= senate.tsunamiAt ? 'tsunami' : n >= senate.waveAt ? 'wave' : 'short of the wave');
     senate.nowTier = tier(senate.nowD);
     senate.calledTier = tier(senate.calledTotalD);
