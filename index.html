@@ -89,6 +89,12 @@
   .tw-method p { margin: 0; max-width: 75ch; }
   .tw-wi { display: grid; gap: 8px; min-width: 0; align-content: start; }
   .tw-wi-stack { display: grid; gap: 20px; }
+  .tw-check { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+  .tw-note-inline { color: var(--muted); }
+  .tw-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tw-chip { border: 2px solid var(--line); border-radius: 8px; padding: 3px 8px; font-size: .8rem; font-variant-numeric: tabular-nums; display: inline-grid; justify-items: center; line-height: 1.3; min-width: 4.2rem; }
+  .tw-chip b { font-size: .85rem; }
+  .tw-tri-need { font-size: .875rem; }
   footer { color: var(--muted); font-size: .8rem; max-width: 75ch; }
   @media (max-width: 40rem) { .hide-narrow { display: none; } h1 { font-size: 1.8rem; } .tw-big { font-size: 2.5rem; } }
 </style>
@@ -101,7 +107,7 @@
       <button class="tw-share" id="share" type="button">Share link</button>
     </div>
     <p class="tw-take">Heading for: <b id="heading">loading</b> (<span id="confidence">…</span>). So far: <b id="verdict">…</b>.</p>
-    <p class="tw-stamp">Last sampled <span id="sampled">…</span> Central. New numbers every 15 minutes from the first poll close; this page checks for them every minute. <span id="stale" class="tw-stale" hidden>Couldn't reach the latest numbers, so this may be behind.</span></p>
+    <p class="tw-stamp">Last sampled <span id="sampled">…</span> Central. New numbers about every 7 minutes from the first poll close at 5:00 pm; this page checks for them every minute. <span id="stale" class="tw-stale" hidden>Couldn't reach the latest numbers, so this may be behind.</span></p>
   </header>
 
   <section class="tw-card" id="heading-card">
@@ -120,7 +126,13 @@
   <section class="tw-grid2">
     <section class="tw-card" id="senate-card">
       <h2>Senate: the path to 53</h2>
-      <p class="tw-line">Democrats hold <b id="s-notup">—</b> seats that aren't up this year, so 53 takes <b id="s-need">—</b> of tonight's <b id="s-up">—</b> races.</p>
+      <p class="tw-line">Democrats hold <b id="s-notup">—</b> seats that aren't up this year, so 53 takes <b id="s-need">—</b> of tonight's <b id="s-up">—</b> races. That means:</p>
+      <ul class="tw-check">
+        <li><b>Hold all <span id="s-dheld">—</span> Democratic seats.</b> <span id="s-holds-line" class="tw-note-inline">—</span></li>
+        <li><b>Flip <span id="s-flipsneeded">—</span> Republican seats.</b> <span id="s-flips-line" class="tw-note-inline">—</span></li>
+      </ul>
+      <p class="tw-note">The likeliest flips by the final polls: North Carolina, Maine, Kansas, Texas, Ohio, Alaska and Iowa, with South Carolina tied.</p>
+      <div class="tw-chips" id="s-flipchips"></div>
       <div class="tw-figs">
         <div class="tw-fig"><span class="tw-fig-label">Democratic seats, called or leading</span><b class="tw-big" id="s-now">—</b></div>
         <div class="tw-fig"><span class="tw-fig-label">Projected at tonight's pace</span><b class="tw-big" id="s-proj">—</b></div>
@@ -231,7 +243,7 @@
     <p>Senate seats count Democrats not up this year, races called for them and races they lead. The projection adds races without results at tonight's pace. An independent who wins is shown separately and not counted toward 53.</p>
   </section>
 
-  <footer>Unofficial tracker. Numbers come from AP and other major news outlets and are sampled every 15 minutes, so they trail live results pages. Statuses on uncalled races read the count so far.</footer>
+  <footer>Unofficial tracker. Vote counts and race calls come from NBC News and are sampled about every 7 minutes, so they trail live results pages by a few minutes. Wisconsin Legislature seats and ballot questions are filled in by hand from news reports. Statuses on uncalled races read the count so far.</footer>
 </main>
 
 <script>
@@ -345,9 +357,31 @@
       .on('pointerleave', () => tip.hide());
   }
 
+  // A small seat tile: filled when called, tinted when leading, plain before results.
+  const chip = (label, r) => {
+    const m = num(r.dem_margin);
+    const side = r.called_for || (m === null ? null : m > 0 ? (r.dem_party === 'I' ? 'I' : 'D') : m < 0 ? 'R' : null);
+    const c = party(side);
+    const el = document.createElement('span');
+    el.className = 'tw-chip';
+    if (r.called_for) { el.style.background = c; el.style.borderColor = c; el.style.color = '#fff'; }
+    else if (side) { el.style.background = `color-mix(in srgb, ${c} 30%, transparent)`; el.style.borderColor = c; }
+    const b = document.createElement('b'); b.textContent = label;
+    const s = document.createElement('span');
+    s.textContent = r.called_for ? `${r.called_for} ✓` : m === null ? 'no results' : `${fmt(m)} ▲`;
+    el.append(b, s);
+    return el;
+  };
+
   function drawSenate(R) {
     const s = R.senate;
     setText('s-notup', s.notUpD); setText('s-need', s.need); setText('s-up', s.up);
+    setText('s-dheld', s.dHeldN); setText('s-flipsneeded', s.flipsNeeded);
+    const anyResults = s.rows.some((r) => r.sideNow);
+    setText('s-holds-line', anyResults ? `${s.holds} holding so far (called or leading), ${s.lost} slipping.` : 'No results yet.');
+    setText('s-flips-line', anyResults ? `${s.flips} of ${s.flipsNeeded} so far (called or leading).` : 'No results yet.');
+    const fc = document.getElementById('s-flipchips');
+    fc.replaceChildren(...s.flipRows.map((d) => chip(d.state, d.race)));
     setText('s-now', s.nowD); setText('s-proj', s.projectedD); setText('s-target', s.target);
     const el = document.getElementById('senate');
     el.replaceChildren();
@@ -398,6 +432,26 @@
       st.textContent = p.status;
       const d = document.createElement('span'); d.className = 'tw-note'; d.textContent = p.detail;
       card.append(h, st, d);
+      const seats = (R.trifecta.seats || {})[p.part];
+      const gov = p.part === 'gov' ? R.bw.find((r) => r.id === 'WI-GOV') : null;
+      if (gov) {
+        const need = document.createElement('span');
+        need.className = 'tw-tri-need';
+        need.textContent = `Needs ${gov.dem} (D) to beat ${gov.rep} (R):`;
+        const chips = document.createElement('div');
+        chips.className = 'tw-chips';
+        chips.append(chip('Governor', gov));
+        card.append(need, chips);
+      }
+      if (seats && seats.length) {
+        const need = document.createElement('span');
+        need.className = 'tw-tri-need';
+        need.textContent = `Needs ${p.needD} of these ${p.battlegrounds}; winning or leading ${p.dBattle}:`;
+        const chips = document.createElement('div');
+        chips.className = 'tw-chips';
+        chips.append(...seats.map((r) => chip(r.id.replace('WI-', '').replace(/^(SD|AD)/, '$1 '), r)));
+        card.append(need, chips);
+      }
       el.appendChild(card);
     });
   }

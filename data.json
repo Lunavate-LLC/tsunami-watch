@@ -139,7 +139,8 @@
    "rule": "Competitive",
    "wave_line": -6,
    "tsunami_line": 0,
-   "order": 7
+   "order": 7,
+   "seat_now": "R"
   },
   {
    "id": "FL-GOV",
@@ -183,7 +184,8 @@
    "rule": "Competitive",
    "wave_line": 10,
    "tsunami_line": 16,
-   "order": 9
+   "order": 9,
+   "seat_now": "D"
   },
   {
    "id": "GA-GOV",
@@ -227,7 +229,8 @@
    "rule": "Competitive",
    "wave_line": 9,
    "tsunami_line": 15,
-   "order": 11
+   "order": 11,
+   "seat_now": "D"
   },
   {
    "id": "SC-SEN",
@@ -250,7 +253,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 6,
-   "order": 12
+   "order": 12,
+   "seat_now": "R"
   },
   {
    "id": "VA-1",
@@ -289,7 +293,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "",
-   "rep": ""
+   "rep": "",
+   "seat_now": "R"
   },
   {
    "id": "NC-1",
@@ -348,7 +353,8 @@
    "rule": "Competitive",
    "wave_line": 3,
    "tsunami_line": 9,
-   "order": 17
+   "order": 17,
+   "seat_now": "R"
   },
   {
    "id": "ME-2",
@@ -389,7 +395,8 @@
    "rule": "Competitive",
    "wave_line": 5,
    "tsunami_line": 11,
-   "order": 19
+   "order": 19,
+   "seat_now": "R"
   },
   {
    "id": "ME-SEN",
@@ -412,7 +419,8 @@
    "rule": "Competitive",
    "wave_line": 5,
    "tsunami_line": 11,
-   "order": 20
+   "order": 20,
+   "seat_now": "R"
   },
   {
    "id": "MI-10",
@@ -477,7 +485,8 @@
    "rule": "Competitive",
    "wave_line": 5,
    "tsunami_line": 11,
-   "order": 23
+   "order": 23,
+   "seat_now": "D"
   },
   {
    "id": "MI-GOV",
@@ -579,7 +588,8 @@
    "called_by": "",
    "bellwether": true,
    "dem": "",
-   "rep": ""
+   "rep": "",
+   "seat_now": "R"
   },
   {
    "id": "WI-GOV",
@@ -692,7 +702,8 @@
    "rule": "Competitive",
    "wave_line": 1,
    "tsunami_line": 7,
-   "order": 34
+   "order": 34,
+   "seat_now": "R"
   },
   {
    "id": "MN-2",
@@ -736,7 +747,8 @@
    "rule": "Competitive",
    "wave_line": 6,
    "tsunami_line": 12,
-   "order": 36
+   "order": 36,
+   "seat_now": "D"
   },
   {
    "id": "MN-GOV",
@@ -780,7 +792,8 @@
    "rule": "Competitive",
    "wave_line": -2,
    "tsunami_line": 4,
-   "order": 38
+   "order": 38,
+   "seat_now": "R"
   },
   {
    "id": "NV-2",
@@ -839,7 +852,8 @@
    "rule": "Competitive",
    "wave_line": 2,
    "tsunami_line": 8,
-   "order": 41
+   "order": 41,
+   "seat_now": "R"
   },
   {
    "id": "KY-SEN",
@@ -859,7 +873,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +30.5 in 2024",
-   "order": 200
+   "order": 200,
+   "seat_now": "R"
   },
   {
    "id": "VA-SEN",
@@ -879,7 +894,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +5.8 in 2024",
-   "order": 201
+   "order": 201,
+   "seat_now": "D"
   },
   {
    "id": "WV-SEN",
@@ -899,7 +915,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +41.9 in 2024",
-   "order": 202
+   "order": 202,
+   "seat_now": "R"
   },
   {
    "id": "AL-SEN",
@@ -919,7 +936,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +30.5 in 2024",
-   "order": 203
+   "order": 203,
+   "seat_now": "R"
   },
   {
    "id": "DE-SEN",
@@ -939,7 +957,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +14.7 in 2024",
-   "order": 204
+   "order": 204,
+   "seat_now": "D"
   },
   {
    "id": "IL-SEN",
@@ -959,7 +978,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +10.9 in 2024",
-   "order": 205
+   "order": 205,
+   "seat_now": "D"
   },
   {
    "id": "MA-SEN",
@@ -979,7 +999,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +25.2 in 2024",
-   "order": 206
+   "order": 206,
+   "seat_now": "D"
   },
   {
    "id": "MS-SEN",
@@ -999,7 +1020,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Likely R; Trump +22.9 in 2024",
-   "order": 207
+   "order": 207,
+   "seat_now": "R"
   },
   {
    "id": "NJ-SEN",
@@ -1019,7 +1041,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +5.9 in 2024",
-   "order": 208
+   "order": 208,
+   "seat_now": "D"
   },
   {
    "id": "OK-SEN",
@@ -1039,7 +1062,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +34.3 in 2024",
-   "order": 209
+   "order": 209,
+   "seat_now": "R"
   },
   {
    "id": "RI-SEN",
@@ -1059,7 +1083,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +13.8 in 2024",
-   "order": 210
+   "order": 210,
+   "seat_now": "D"
   },
   {
    "id": "SD-SEN",
@@ -1079,7 +1104,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +29.2 in 2024",
-   "order": 211
+   "order": 211,
+   "seat_now": "R"
   },
   {
    "id": "TN-SEN",
@@ -1099,7 +1125,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +29.7 in 2024",
-   "order": 212
+   "order": 212,
+   "seat_now": "R"
   },
   {
    "id": "AR-SEN",
@@ -1119,7 +1146,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +30.6 in 2024",
-   "order": 213
+   "order": 213,
+   "seat_now": "R"
   },
   {
    "id": "CO-SEN",
@@ -1139,7 +1167,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +11.0 in 2024",
-   "order": 214
+   "order": 214,
+   "seat_now": "D"
   },
   {
    "id": "LA-SEN",
@@ -1159,7 +1188,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +22.0 in 2024",
-   "order": 215
+   "order": 215,
+   "seat_now": "R"
   },
   {
    "id": "NM-SEN",
@@ -1179,7 +1209,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +6.0 in 2024",
-   "order": 216
+   "order": 216,
+   "seat_now": "D"
   },
   {
    "id": "WY-SEN",
@@ -1199,7 +1230,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +45.8 in 2024",
-   "order": 217
+   "order": 217,
+   "seat_now": "R"
   },
   {
    "id": "ID-SEN",
@@ -1219,7 +1251,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +36.5 in 2024",
-   "order": 218
+   "order": 218,
+   "seat_now": "R"
   },
   {
    "id": "MT-SEN",
@@ -1239,7 +1272,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid R; Trump +19.9 in 2024",
-   "order": 219
+   "order": 219,
+   "seat_now": "R"
   },
   {
    "id": "OR-SEN",
@@ -1259,7 +1293,8 @@
    "called_by": "",
    "bellwether": false,
    "benchmark": "Solid D; Harris +14.3 in 2024",
-   "order": 220
+   "order": 220,
+   "seat_now": "D"
   },
   {
    "id": "WI-SD5",

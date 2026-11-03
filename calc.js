@@ -108,10 +108,18 @@
     const cnt = (f) => senRows.filter(f).length;
     const calledD = cnt((r) => r.kind === 'called' && r.sideNow === 'D');
     const leadD = cnt((r) => r.kind === 'leading' && r.sideNow === 'D');
+    const dHeld = senRows.filter((r) => r.race.seat_now === 'D');
+    const rHeld = senRows.filter((r) => r.race.seat_now === 'R');
     const senate = {
       rows: senRows,
       notUpD, target, need, up: senRows.length,
       calledD, leadD,
+      dHeldN: dHeld.length,
+      holds: dHeld.filter((r) => r.sideNow === 'D').length,
+      lost: dHeld.filter((r) => r.sideNow && r.sideNow !== 'D').length,
+      flipsNeeded: Math.max(0, need - dHeld.length),
+      flips: rHeld.filter((r) => r.sideNow === 'D').length,
+      flipRows: rHeld.filter((r) => r.race.bellwether === true),
       calledR: cnt((r) => r.kind === 'called' && r.sideNow === 'R'),
       nowD: notUpD + calledD + leadD,
       projectedD: notUpD + cnt((r) => r.sideProj === 'D')
@@ -157,7 +165,7 @@
       const detail = any
         ? `Democrats at ${dNow} of the ${maj} needed: ${safeD} safe, ${won('D')} won, ${lead('D')} leading`
         : `Democrats need ${maj - safeD} of the ${seats.length} battleground seats`;
-      parts.push({ part, name, status: st, detail, needD: maj - safeD, battlegrounds: seats.length });
+      parts.push({ part, name, status: st, detail, needD: maj - safeD, battlegrounds: seats.length, dBattle: won('D') + lead('D') });
     });
     const sts = parts.map((d) => d.status);
     const all = sts.length < 3 ? 'waiting for results'

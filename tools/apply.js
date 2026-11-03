@@ -58,7 +58,9 @@ const after = TW.compute(data);
 const signed = (v) => (v === null ? 'none yet' : (v >= 0 ? '+' : '-') + Math.abs(v).toFixed(1));
 const fm = (v) => (v === null || v === undefined ? 'none' : v === 0 ? 'Even' : (v > 0 ? 'D+' : 'R+') + Math.abs(v).toFixed(1));
 
-const calls = data.races.filter((r) => r.called_for && !(oldRaces.get(r.id) || {}).called_for);
+const newCalls = data.races.filter((r) => r.called_for && !(oldRaces.get(r.id) || {}).called_for);
+// Only bellwether calls are worth a text; safe seats get called by the dozen at each poll close.
+const calls = newCalls.filter((r) => r.bellwether === true);
 const moves = data.races.map((r) => {
   const o = TW.num((oldRaces.get(r.id) || {}).dem_margin), n = TW.num(r.dem_margin);
   return { r, o, n, d: o === null || n === null ? (n === null ? 0 : 999) : n - o };
@@ -70,7 +72,7 @@ const lines = [
   `Pace: ${signed(before.pace.pace)} -> ${signed(after.pace.pace)} (tsunami from ${signed(after.pace.tsunamiNeed)}, ${after.pace.counted} races' worth counted)`,
   `Senate: ${after.senate.nowD} called or leading, ${after.senate.projectedD} projected (was ${before.senate.projectedD}), hope ${after.senate.target}`,
   `WI trifecta: ${before.trifecta.all} -> ${after.trifecta.all}`,
-  ...calls.map((r) => `Called: ${r.race} for ${r.called_for} by ${r.called_by}`),
+  ...newCalls.map((r) => `Called: ${r.race} for ${r.called_for} by ${r.called_by}`),
   ...moves.slice(0, 6).map((m) => `${m.r.race}: ${m.o === null ? 'first results' : fm(m.o)} -> ${fm(m.n)}${TW.num(m.r.reporting) !== null ? ` (${m.r.reporting}% counted)` : ''}`)
 ];
 
