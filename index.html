@@ -123,7 +123,7 @@
     <ul class="tw-rules">
       <li><b>Wave seats</b>, the battlegrounds a good night wins (North Carolina, Georgia, Michigan, Virginia's 2nd): a Democratic win is a wave sign. Winning by 6 or more past the final poll is a tsunami sign. A loss is short.</li>
       <li><b>Tsunami seats</b>, the ones a good night shouldn't win (Maine, Ohio, Texas, South Carolina, anything in Florida, Louisiana, Kentucky's 6th): a Democrat within 5 is a wave sign. A Democratic win is a tsunami sign.</li>
-      <li><b>The verdict:</b> if half or more are tsunami signs, it's tsunami pace. If half or more are wave or tsunami signs, it's wave pace. Anything less is short of the wave.</li>
+      <li><b>The verdict:</b> Democrats winning half or more of the tsunami seats counted is tsunami pace. Winning half or more of the wave seats is wave pace. Anything less is short of the wave. (In the first hour, before any wave seat reports, staying within 5 in half the tsunami seats reads as wave pace.)</li>
     </ul>
     <p class="tw-wait" id="wait">Waiting for the first results at 5:00 pm Central.</p>
     <div class="tw-reads">
@@ -352,10 +352,10 @@
     setText('n-bw', n);
     document.getElementById('wait').hidden = t.reported > 0;
     setText('r-verdict', t.reported ? t.verdict : 'waiting');
-    setText('r-counts', t.reported ? `${t.tsunami} tsunami, ${t.wave} wave, ${t.short} short, of ${t.reported} counting` : 'No votes in yet');
+    setText('r-counts', t.reported ? `Winning ${t.tsWon} of ${t.tsN} tsunami seats and ${t.wvWon} of ${t.wvN} wave seats counting.` : 'No votes in yet');
     fillBar(document.getElementById('r-bar'), t, n - t.reported);
     setText('c-verdict', c.n ? c.verdict : 'none called yet');
-    setText('c-counts', c.n ? `${c.tsunami} tsunami, ${c.wave} wave, ${c.short} short, of ${c.n} called` : 'No bellwether called yet');
+    setText('c-counts', c.n ? `Won ${c.tsWon} of ${c.tsN} tsunami seats and ${c.wvWon} of ${c.wvN} wave seats called.` : 'No bellwether called yet');
     fillBar(document.getElementById('c-bar'), c, n - c.n);
   }
 

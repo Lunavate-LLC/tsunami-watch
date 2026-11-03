@@ -9,14 +9,29 @@
 
   const statusOf = (m, wl, tl) => (m === null ? 'Waiting' : m >= tl ? 'Tsunami sign' : m >= wl ? 'Wave sign' : 'Short of wave');
 
-  // The spec's verdict: only races with results count.
-  const verdictOf = (statuses) => {
-    const n = (s) => statuses.filter((x) => x === s).length;
-    const got = statuses.filter((x) => x !== 'Waiting').length;
-    if (got === 0) return 'waiting for results';
-    if (n('Tsunami sign') * 2 >= got) return 'tsunami pace';
-    if ((n('Tsunami sign') + n('Wave sign')) * 2 >= got) return 'wave pace';
-    return 'short of the wave';
+  // Tsunami seats are the ones a good night shouldn't win; wave seats are the battlegrounds it does.
+  const isTsunamiSeat = (r) => r.rule !== 'Competitive';
+  const demWon = (r) => {
+    if (r.called_for) return r.called_for === 'D' || r.called_for === 'I';
+    const m = num(r.dem_margin);
+    return m !== null && m > 0;
+  };
+  // The verdict, over the races with results: Democrats winning half or more of the tsunami seats is tsunami pace;
+  // winning half or more of the wave seats is wave pace; anything less is short of the wave. Before any wave seat
+  // reports (the first hour), Democrats close (within 5) or winning in half the tsunami seats reads as wave pace.
+  const verdictOf = (list, statusOfRace) => {
+    const got = list.filter((r) => statusOfRace(r) !== 'Waiting');
+    if (!got.length) return 'waiting for results';
+    const ts = got.filter(isTsunamiSeat);
+    const wv = got.filter((r) => !isTsunamiSeat(r));
+    if (ts.length && ts.filter(demWon).length * 2 >= ts.length) return 'tsunami pace';
+    if (wv.length) return wv.filter(demWon).length * 2 >= wv.length ? 'wave pace' : 'short of the wave';
+    return ts.filter((r) => statusOfRace(r) !== 'Short of wave').length * 2 >= ts.length ? 'wave pace' : 'short of the wave';
+  };
+  const seatCounts = (list, statusOfRace) => {
+    const ts = list.filter((r) => isTsunamiSeat(r) && statusOfRace(r) !== 'Waiting');
+    const wv = list.filter((r) => !isTsunamiSeat(r) && statusOfRace(r) !== 'Waiting');
+    return { tsN: ts.length, tsWon: ts.filter(demWon).length, wvN: wv.length, wvWon: wv.filter(demWon).length };
   };
 
   const countStatuses = (list) => {
@@ -40,13 +55,13 @@
 
     // Counting so far: every bellwether with results, on its current count.
     const status = new Map(bw.map((r) => [r.id, statusOf(num(r.dem_margin), num(r.wave_line), num(r.tsunami_line))]));
-    const tally = { ...countStatuses([...status.values()]), verdict: verdictOf([...status.values()]) };
+    const st = (r) => status.get(r.id);
+    const tally = { ...countStatuses([...status.values()]), ...seatCounts(bw, st), verdict: verdictOf(bw, st) };
     tally.reported = tally.tsunami + tally.wave + tally.short;
 
     // Called so far: only races a decision desk has called, on the count at the call.
     const calledRaces = bw.filter((r) => r.called_for && num(r.dem_margin) !== null);
-    const calledStatuses = calledRaces.map((r) => status.get(r.id));
-    const called = { ...countStatuses(calledStatuses), n: calledRaces.length, verdict: verdictOf(calledStatuses) };
+    const called = { ...countStatuses(calledRaces.map(st)), ...seatCounts(calledRaces, st), n: calledRaces.length, verdict: verdictOf(calledRaces, st) };
 
     const regions = REGIONS.filter((g) => bw.some((r) => r.region === g))
       .map((region) => ({ region, ...countStatuses(bw.filter((r) => r.region === region).map((r) => status.get(r.id))) }));
@@ -144,21 +159,21 @@
     const trifecta = { parts, all, seats: wiSeats, ballot };
 
     // Signs through the night: the status counts at each sample, from the latest count each race had then.
-    const lines = new Map(bw.map((r) => [r.id, [num(r.wave_line), num(r.tsunami_line)]]));
+    const byId = new Map(bw.map((r) => [r.id, r]));
     const sorted = samples.filter((s) => s.at).sort((a, b) => (a.at < b.at ? -1 : a.at > b.at ? 1 : 0));
     const times = [...new Set(sorted.map((s) => s.at))];
     const latest = new Map();
     let i = 0;
     const history = times.map((t) => {
       while (i < sorted.length && sorted[i].at <= t) { latest.set(sorted[i].id, sorted[i]); i += 1; }
-      const st = [];
+      const then = [];
       latest.forEach((s, id) => {
-        if (!lines.has(id)) return;
-        const [wl, tl] = lines.get(id);
-        st.push(statusOf(num(s.dem_margin), wl, tl));
+        const r = byId.get(id);
+        if (r) then.push({ ...r, dem_margin: s.dem_margin, called_for: '' });
       });
-      const c = countStatuses(st);
-      return { at: t, tsunami: c.tsunami, wave: c.wave, short: c.short, verdict: verdictOf(st) };
+      const stThen = (r) => statusOf(num(r.dem_margin), num(r.wave_line), num(r.tsunami_line));
+      const c = countStatuses(then.map(stThen));
+      return { at: t, tsunami: c.tsunami, wave: c.wave, short: c.short, ...seatCounts(then, stThen), verdict: verdictOf(then, stThen) };
     });
 
     return {
