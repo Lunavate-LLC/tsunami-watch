@@ -1,5 +1,5 @@
 {
- "sampled_at": "2026-11-03T23:01:27Z",
+ "sampled_at": "2026-11-03T23:08:31Z",
  "races": [
   {
    "id": "KY-6",
@@ -31,8 +31,8 @@
    "rule": "Seat Trump carried comfortably",
    "wave_line": -5,
    "tsunami_line": 0,
-   "dem_margin": null,
-   "reporting": null,
+   "dem_margin": 27.1,
+   "reporting": 28.6,
    "called_by": "",
    "bellwether": true,
    "dem": "J.D. Ford",
@@ -924,8 +924,8 @@
    "base_2024": -30.5,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": null,
-   "reporting": null,
+   "dem_margin": -47.3,
+   "reporting": 0.3,
    "called_for": "",
    "called_by": "",
    "bellwether": false,
@@ -1743,5 +1743,18 @@
    "note": "Safe: every seat outside the 12-seat battleground."
   }
  ],
- "samples": []
+ "samples": [
+  {
+   "at": "2026-11-03T23:08:31Z",
+   "id": "IN-5",
+   "dem_margin": 27.1,
+   "reporting": 28.6
+  },
+  {
+   "at": "2026-11-03T23:08:31Z",
+   "id": "KY-SEN",
+   "dem_margin": -47.3,
+   "reporting": 0.3
+  }
+ ]
 }
