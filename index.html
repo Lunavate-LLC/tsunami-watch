@@ -30,6 +30,10 @@
     }
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  .tw-scale { margin: 0; padding-left: 1.2em; display: grid; gap: 2px; }
+  .tw-wait { margin: 0; font-size: 1.1rem; font-weight: 600; }
+  .tw-fig-word { font-size: .9rem; font-weight: 600; }
   html { -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.45; }
   .tw { max-width: 72rem; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 20px; }
@@ -112,12 +116,18 @@
 
   <section class="tw-card" id="heading-card">
     <h2>Where the night is heading</h2>
-    <p class="tw-note">Tonight's pace is how far Democrats are running past their wave lines, on average across the bellwethers counted so far. At 0 the night matches a good Democratic night. Past the tsunami mark it beats the polls. Below 0 it falls short of them.</p>
+    <p class="tw-line">One number for the whole night: how much better or worse Democrats are doing than a good night needs, averaged over the races counted so far.</p>
+    <ul class="tw-scale">
+      <li><b>Below 0:</b> short of the polls</li>
+      <li><b>0 to <span id="tneed-a">+6</span>:</b> a wave, a good Democratic night</li>
+      <li><b><span id="tneed-b">+6</span> or more:</b> a tsunami, beating the polls big</li>
+    </ul>
     <p class="tw-note">It's not a lead. A Democrat losing a Trump +15 seat by 2 is still +3 past that seat's R+5 line, and one winning Maine by 3 is −2 against a final poll of D+5.</p>
-    <div class="tw-figs">
-      <div class="tw-fig"><span class="tw-fig-label">Tonight's pace</span><b class="tw-big" id="pace">—</b></div>
-      <div class="tw-fig"><span class="tw-fig-label">Tsunami pace starts at</span><b class="tw-num" id="tneed">—</b></div>
-      <div class="tw-fig"><span class="tw-fig-label">Races' worth counted</span><b class="tw-num" id="counted">—</b></div>
+    <p class="tw-wait" id="pace-wait">Waiting for the first results at 5:00 pm Central.</p>
+    <div class="tw-figs" id="pace-figs" hidden>
+      <div class="tw-fig"><span class="tw-fig-label">Democrats vs. a good night</span><b class="tw-big" id="pace">—</b><span class="tw-fig-word" id="pace-word">—</span></div>
+      <div class="tw-fig"><span class="tw-fig-label">Tsunami at</span><b class="tw-num" id="tneed">—</b></div>
+      <div class="tw-fig"><span class="tw-fig-label">Vote counted so far</span><b class="tw-num" id="counted">—</b></div>
       <div class="tw-fig"><span class="tw-fig-label">Bellwethers called</span><b class="tw-num" id="calledn">—</b></div>
     </div>
     <div class="tw-chart" id="gauge"></div>
@@ -672,9 +682,13 @@
     setText('confidence', R.forecast.confidence);
     setText('verdict', R.tally.verdict);
     setText('sampled', R.sampledAt ? ct(R.sampledAt) : 'not yet');
-    setText('pace', signed(R.pace.pace));
-    setText('tneed', signed(R.pace.tsunamiNeed));
-    setText('counted', d3.format('.1f')(R.pace.counted || 0));
+    const p = num(R.pace.pace), T = num(R.pace.tsunamiNeed) ?? 6;
+    document.getElementById('pace-figs').hidden = p === null;
+    document.getElementById('pace-wait').hidden = p !== null;
+    setText('pace', signed(p));
+    setText('pace-word', p === null ? '' : p >= T ? 'a tsunami' : p >= 0 ? 'a wave' : 'short of the polls');
+    setText('tneed', tick(T)); setText('tneed-a', tick(T)); setText('tneed-b', tick(T));
+    setText('counted', d3.format('.0%')(R.pace.bellwethers ? (R.pace.counted || 0) / R.pace.bellwethers : 0));
     setText('calledn', `${R.forecast.calledN} of ${R.pace.bellwethers}`);
     setText('early', R.forecast.earlyBelow);
     const parts = [drawGauge, drawSenate, drawTrifecta, drawWisconsin, drawNext, drawHist, drawTables, drawLanes];
