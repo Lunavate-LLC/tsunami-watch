@@ -1,5 +1,5 @@
 {
- "sampled_at": "2026-11-03T23:22:36Z",
+ "sampled_at": "2026-11-03T23:29:39Z",
  "races": [
   {
    "id": "KY-6",
@@ -924,8 +924,8 @@
    "base_2024": -30.5,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -40.4,
-   "reporting": 0.5,
+   "dem_margin": -33.6,
+   "reporting": 1,
    "called_for": "",
    "called_by": "",
    "bellwether": false,
@@ -1779,6 +1779,18 @@
    "id": "KY-SEN",
    "dem_margin": -40.4,
    "reporting": 0.5
+  },
+  {
+   "at": "2026-11-03T23:29:39Z",
+   "id": "IN-5",
+   "dem_margin": 27.1,
+   "reporting": 28.6
+  },
+  {
+   "at": "2026-11-03T23:29:39Z",
+   "id": "KY-SEN",
+   "dem_margin": -33.6,
+   "reporting": 1
   }
  ]
 }
