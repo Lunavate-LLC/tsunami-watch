@@ -302,7 +302,8 @@
    "dem": "",
    "rep": "",
    "seat_now": "R",
-   "poll": 11.6
+   "poll": 11.6,
+   "rating": "Likely D"
   },
   {
    "id": "NC-1",
@@ -605,7 +606,8 @@
    "dem": "",
    "rep": "",
    "seat_now": "R",
-   "poll": 3.7
+   "poll": 3.7,
+   "rating": "Toss-up"
   },
   {
    "id": "WI-GOV",
