@@ -1,5 +1,5 @@
 {
- "sampled_at": "2026-11-04T03:48:53Z",
+ "sampled_at": "2026-11-04T03:55:57Z",
  "races": [
   {
    "id": "KY-6",
@@ -33,7 +33,7 @@
    "wave_line": -5,
    "tsunami_line": 0,
    "dem_margin": 3.3,
-   "reporting": 95.4,
+   "reporting": 97.1,
    "called_by": "",
    "bellwether": true,
    "dem": "J.D. Ford",
@@ -51,8 +51,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 6,
-   "dem_margin": 5,
-   "reporting": 83,
+   "dem_margin": 5.1,
+   "reporting": 83.6,
    "called_by": "NBC News",
    "bellwether": true,
    "dem": "Elaine Luria",
@@ -181,8 +181,8 @@
    "base_2024": -2.2,
    "rating": "Likely D",
    "favored": "D",
-   "dem_margin": 17.5,
-   "reporting": 87,
+   "dem_margin": 17.3,
+   "reporting": 88.3,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": true,
@@ -209,8 +209,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 6,
-   "dem_margin": 8.4,
-   "reporting": 87,
+   "dem_margin": 8.2,
+   "reporting": 88.3,
    "called_for": "D",
    "called_by": "NBC News",
    "order": 10
@@ -227,8 +227,8 @@
    "base_2024": 2.8,
    "rating": "Lean D",
    "favored": "D",
-   "dem_margin": 14.3,
-   "reporting": 64.3,
+   "dem_margin": 15.1,
+   "reporting": 67.8,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": true,
@@ -253,7 +253,7 @@
    "rating": "Lean R",
    "favored": "R",
    "dem_margin": 3.5,
-   "reporting": 93,
+   "reporting": 93.1,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": true,
@@ -282,8 +282,8 @@
    "tsunami_line": 6,
    "dem_margin": 1.9,
    "reporting": 97.1,
-   "called_for": "",
-   "called_by": "",
+   "called_for": "D",
+   "called_by": "NBC News",
    "order": 13
   },
   {
@@ -297,8 +297,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 12,
-   "dem_margin": 19.1,
-   "reporting": 97,
+   "dem_margin": 19.3,
+   "reporting": 96.7,
    "called_by": "NBC News",
    "bellwether": true,
    "dem": "Roy Cooper",
@@ -321,8 +321,8 @@
    "rule": "Seat Trump carried comfortably",
    "wave_line": -5,
    "tsunami_line": 0,
-   "dem_margin": 2.1,
-   "reporting": 91.9,
+   "dem_margin": 1.9,
+   "reporting": 93.2,
    "called_by": "",
    "bellwether": true,
    "dem": "Don Davis",
@@ -340,8 +340,8 @@
    "rule": "Seat Trump carried comfortably",
    "wave_line": -5,
    "tsunami_line": 0,
-   "dem_margin": 15.1,
-   "reporting": 97.7,
+   "dem_margin": 15.8,
+   "reporting": 99,
    "called_by": "NBC News",
    "bellwether": true,
    "dem": "Jamie Ager",
@@ -362,7 +362,7 @@
    "rating": "Toss-up",
    "favored": "",
    "dem_margin": 1.7,
-   "reporting": 84.7,
+   "reporting": 85.2,
    "called_for": "",
    "called_by": "",
    "bellwether": true,
@@ -385,8 +385,8 @@
    "rule": "Tough seat for Democrats",
    "wave_line": -5,
    "tsunami_line": 0,
-   "dem_margin": -7,
-   "reporting": 33.4,
+   "dem_margin": -7.2,
+   "reporting": 35.6,
    "called_by": "",
    "bellwether": true,
    "dem": "Matt Dunlap",
@@ -405,8 +405,8 @@
    "base_2024": -16.1,
    "rating": "Toss-up",
    "favored": "",
-   "dem_margin": 9,
-   "reporting": 82.8,
+   "dem_margin": 8.4,
+   "reporting": 83.8,
    "called_for": "",
    "called_by": "",
    "bellwether": true,
@@ -430,8 +430,8 @@
    "base_2024": 6.9,
    "rating": "Toss-up",
    "favored": "",
-   "dem_margin": 1.9,
-   "reporting": 30.2,
+   "dem_margin": 1,
+   "reporting": 32.5,
    "called_for": "",
    "called_by": "",
    "bellwether": true,
@@ -479,8 +479,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 6,
-   "dem_margin": -11.1,
-   "reporting": 47,
+   "dem_margin": -10.2,
+   "reporting": 48.7,
    "called_for": "",
    "called_by": "",
    "order": 22
@@ -497,8 +497,8 @@
    "base_2024": -1.4,
    "rating": "Lean D",
    "favored": "D",
-   "dem_margin": 6.7,
-   "reporting": 27.8,
+   "dem_margin": 5.6,
+   "reporting": 28.9,
    "called_for": "",
    "called_by": "",
    "bellwether": true,
@@ -525,8 +525,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 15,
-   "dem_margin": 10.8,
-   "reporting": 27.6,
+   "dem_margin": 9.6,
+   "reporting": 28.7,
    "called_for": "",
    "called_by": "",
    "order": 24
@@ -605,9 +605,9 @@
    "rule": "Seat Trump carried comfortably",
    "wave_line": -5,
    "tsunami_line": 0,
-   "dem_margin": 17.6,
-   "reporting": 59.1,
-   "called_by": "",
+   "dem_margin": 21,
+   "reporting": 65.1,
+   "called_by": "NBC News",
    "bellwether": true,
    "dem": "James Talarico",
    "rep": "Ken Paxton",
@@ -615,7 +615,8 @@
    "poll": 3.7,
    "rating": "Toss-up",
    "base_2024": -13.7,
-   "dem_party": "D"
+   "dem_party": "D",
+   "called_for": "D"
   },
   {
    "id": "WI-GOV",
@@ -628,8 +629,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 13,
-   "dem_margin": 8.2,
-   "reporting": 68.8,
+   "dem_margin": 7.8,
+   "reporting": 71.8,
    "called_by": "",
    "bellwether": true,
    "dem": "David Crowley",
@@ -647,8 +648,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 6,
-   "dem_margin": 8,
-   "reporting": 60.9,
+   "dem_margin": 7.5,
+   "reporting": 65.1,
    "called_by": "",
    "bellwether": true,
    "dem": "Rebecca Cooke",
@@ -666,8 +667,8 @@
    "rule": "Tough seat for Democrats",
    "wave_line": -5,
    "tsunami_line": 0,
-   "dem_margin": 1,
-   "reporting": 75.6,
+   "dem_margin": 1.9,
+   "reporting": 81.1,
    "called_by": "",
    "bellwether": true,
    "dem": "Mitchell Berman",
@@ -686,7 +687,7 @@
    "wave_line": 0,
    "tsunami_line": 6,
    "dem_margin": 15.4,
-   "reporting": 81,
+   "reporting": 74,
    "called_by": "NBC News",
    "bellwether": true,
    "dem": "Manny Rutinel",
@@ -706,7 +707,7 @@
    "wave_line": -5,
    "tsunami_line": 0,
    "dem_margin": 6.8,
-   "reporting": 73.6,
+   "reporting": 68.2,
    "called_by": "",
    "bellwether": true,
    "dem": "Jessica Killin",
@@ -725,8 +726,8 @@
    "base_2024": -13.2,
    "rating": "Toss-up",
    "favored": "",
-   "dem_margin": 7.1,
-   "reporting": 54.5,
+   "dem_margin": 6,
+   "reporting": 56.5,
    "called_for": "",
    "called_by": "",
    "bellwether": true,
@@ -753,8 +754,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 12,
-   "dem_margin": 16.6,
-   "reporting": 4.5,
+   "dem_margin": 20.2,
+   "reporting": 63.8,
    "called_for": "",
    "called_by": "",
    "order": 35
@@ -771,8 +772,8 @@
    "base_2024": 4.2,
    "rating": "Lean D",
    "favored": "D",
-   "dem_margin": -13.9,
-   "reporting": 9.8,
+   "dem_margin": -4.2,
+   "reporting": 22.3,
    "called_for": "",
    "called_by": "",
    "bellwether": true,
@@ -799,8 +800,8 @@
    "rule": "Competitive",
    "wave_line": 0,
    "tsunami_line": 15,
-   "dem_margin": -11.2,
-   "reporting": 7.8,
+   "dem_margin": -0.8,
+   "reporting": 20.5,
    "called_for": "",
    "called_by": "",
    "order": 37
@@ -817,8 +818,8 @@
    "base_2024": -20.5,
    "rating": "Lean R",
    "favored": "R",
-   "dem_margin": 8.9,
-   "reporting": 40.8,
+   "dem_margin": 8.7,
+   "reporting": 41.1,
    "called_for": "",
    "called_by": "",
    "bellwether": true,
@@ -842,8 +843,8 @@
    "base_2024": -22,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -12.5,
-   "reporting": 75.4,
+   "dem_margin": -10.4,
+   "reporting": 78.8,
    "called_for": "",
    "called_by": "",
    "bellwether": true,
@@ -950,8 +951,8 @@
    "base_2024": 5.8,
    "rating": "Solid D",
    "favored": "D",
-   "dem_margin": 19.9,
-   "reporting": 87.2,
+   "dem_margin": 20,
+   "reporting": 87.5,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": false,
@@ -992,8 +993,8 @@
    "base_2024": -30.5,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -10.7,
-   "reporting": 71.6,
+   "dem_margin": -10.2,
+   "reporting": 73.7,
    "called_for": "R",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1013,8 +1014,8 @@
    "base_2024": 14.7,
    "rating": "Solid D",
    "favored": "D",
-   "dem_margin": 27.7,
-   "reporting": 96.5,
+   "dem_margin": 27.1,
+   "reporting": 97.7,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1034,8 +1035,8 @@
    "base_2024": 10.9,
    "rating": "Solid D",
    "favored": "D",
-   "dem_margin": 23.1,
-   "reporting": 64,
+   "dem_margin": 23.9,
+   "reporting": 69.6,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1055,8 +1056,8 @@
    "base_2024": 25.2,
    "rating": "Solid D",
    "favored": "D",
-   "dem_margin": 37,
-   "reporting": 30.7,
+   "dem_margin": 35.7,
+   "reporting": 32.9,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1076,8 +1077,8 @@
    "base_2024": -22.9,
    "rating": "Likely R",
    "favored": "R",
-   "dem_margin": -3.9,
-   "reporting": 79.9,
+   "dem_margin": -4,
+   "reporting": 79,
    "called_for": "",
    "called_by": "",
    "bellwether": false,
@@ -1098,7 +1099,7 @@
    "rating": "Solid D",
    "favored": "D",
    "dem_margin": 27.8,
-   "reporting": 84.4,
+   "reporting": 84.7,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1118,8 +1119,8 @@
    "base_2024": -34.3,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -19.6,
-   "reporting": 81.6,
+   "dem_margin": -19.3,
+   "reporting": 82,
    "called_for": "R",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1160,8 +1161,8 @@
    "base_2024": -29.2,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -28.3,
-   "reporting": 27.9,
+   "dem_margin": -28.4,
+   "reporting": 28.4,
    "called_for": "",
    "called_by": "",
    "bellwether": false,
@@ -1181,8 +1182,8 @@
    "base_2024": -29.7,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -12.8,
-   "reporting": 81,
+   "dem_margin": -11.3,
+   "reporting": 85.2,
    "called_for": "R",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1202,8 +1203,8 @@
    "base_2024": -30.6,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -11.7,
-   "reporting": 82.2,
+   "dem_margin": -12.3,
+   "reporting": 84.1,
    "called_for": "R",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1223,8 +1224,8 @@
    "base_2024": 11,
    "rating": "Solid D",
    "favored": "D",
-   "dem_margin": 26.7,
-   "reporting": 73.4,
+   "dem_margin": 26.8,
+   "reporting": 68,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1245,7 +1246,7 @@
    "rating": "Solid D",
    "favored": "D",
    "dem_margin": 23.8,
-   "reporting": 41.5,
+   "reporting": 41.9,
    "called_for": "D",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1265,8 +1266,8 @@
    "base_2024": -45.8,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -21.7,
-   "reporting": 21.5,
+   "dem_margin": -25,
+   "reporting": 24.3,
    "called_for": "R",
    "called_by": "NBC News",
    "bellwether": false,
@@ -1307,8 +1308,8 @@
    "base_2024": -19.9,
    "rating": "Solid R",
    "favored": "R",
-   "dem_margin": -38.7,
-   "reporting": 12.8,
+   "dem_margin": -39,
+   "reporting": 13.2,
    "called_for": "",
    "called_by": "",
    "bellwether": false,
@@ -1654,8 +1655,8 @@
    "dem": "Josh Kaul",
    "rep": "Eric Toney",
    "benchmark": "Rematch of 2022; Kaul is the incumbent",
-   "dem_margin": 9,
-   "reporting": 69.1,
+   "dem_margin": 8.6,
+   "reporting": 72,
    "yes_pct": null,
    "called_for": "",
    "called_by": ""
@@ -10514,6 +10515,390 @@
    "id": "WI-AG",
    "dem_margin": 9,
    "reporting": 69.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "KY-6",
+   "dem_margin": 9.4,
+   "reporting": 99
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "IN-5",
+   "dem_margin": 3.3,
+   "reporting": 97.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "VA-2",
+   "dem_margin": 5.1,
+   "reporting": 83.6
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "FL-14",
+   "dem_margin": 5.3,
+   "reporting": 99
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "FL-22",
+   "dem_margin": 3.8,
+   "reporting": 99
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "FL-25",
+   "dem_margin": 4.6,
+   "reporting": 98.8
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "FL-SEN",
+   "dem_margin": -3,
+   "reporting": 99
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "FL-GOV",
+   "dem_margin": -1.4,
+   "reporting": 99
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "GA-SEN",
+   "dem_margin": 17.3,
+   "reporting": 88.3
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "GA-GOV",
+   "dem_margin": 8.2,
+   "reporting": 88.3
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "NH-SEN",
+   "dem_margin": 15.1,
+   "reporting": 67.8
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "SC-SEN",
+   "dem_margin": 3.5,
+   "reporting": 93.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "VA-1",
+   "dem_margin": 1.9,
+   "reporting": 97.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "NC-SEN",
+   "dem_margin": 19.3,
+   "reporting": 96.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "NC-1",
+   "dem_margin": 1.9,
+   "reporting": 93.2
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "NC-11",
+   "dem_margin": 15.8,
+   "reporting": 99
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "OH-SEN",
+   "dem_margin": 1.7,
+   "reporting": 85.2
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "ME-2",
+   "dem_margin": -7.2,
+   "reporting": 35.6
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "KS-SEN",
+   "dem_margin": 8.4,
+   "reporting": 83.8
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "ME-SEN",
+   "dem_margin": 1,
+   "reporting": 32.5
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MI-10",
+   "dem_margin": -0.5,
+   "reporting": 21.3
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MI-7",
+   "dem_margin": -10.2,
+   "reporting": 48.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MI-SEN",
+   "dem_margin": 5.6,
+   "reporting": 28.9
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MI-GOV",
+   "dem_margin": 9.6,
+   "reporting": 28.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "NJ-7",
+   "dem_margin": 18.2,
+   "reporting": 85.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "PA-10",
+   "dem_margin": 11.1,
+   "reporting": 97.5
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "PA-7",
+   "dem_margin": 13.6,
+   "reporting": 79.6
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "TX-SEN",
+   "dem_margin": 21,
+   "reporting": 65.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-GOV",
+   "dem_margin": 7.8,
+   "reporting": 71.8
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-3",
+   "dem_margin": 7.5,
+   "reporting": 65.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-1",
+   "dem_margin": 1.9,
+   "reporting": 81.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "CO-8",
+   "dem_margin": 15.4,
+   "reporting": 74
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "CO-5",
+   "dem_margin": 6.8,
+   "reporting": 68.2
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "IA-SEN",
+   "dem_margin": 6,
+   "reporting": 56.5
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MN-2",
+   "dem_margin": 20.2,
+   "reporting": 63.8
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MN-SEN",
+   "dem_margin": -4.2,
+   "reporting": 22.3
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MN-GOV",
+   "dem_margin": -0.8,
+   "reporting": 20.5
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "NE-SEN",
+   "dem_margin": 8.7,
+   "reporting": 41.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "LA-SEN",
+   "dem_margin": -10.4,
+   "reporting": 78.8
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "KY-SEN",
+   "dem_margin": -12.1,
+   "reporting": 99
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "VA-SEN",
+   "dem_margin": 20,
+   "reporting": 87.5
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WV-SEN",
+   "dem_margin": -20.3,
+   "reporting": 93.4
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "AL-SEN",
+   "dem_margin": -10.2,
+   "reporting": 73.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "DE-SEN",
+   "dem_margin": 27.1,
+   "reporting": 97.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "IL-SEN",
+   "dem_margin": 23.9,
+   "reporting": 69.6
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MA-SEN",
+   "dem_margin": 35.7,
+   "reporting": 32.9
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MS-SEN",
+   "dem_margin": -4,
+   "reporting": 79
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "NJ-SEN",
+   "dem_margin": 27.8,
+   "reporting": 84.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "OK-SEN",
+   "dem_margin": -19.3,
+   "reporting": 82
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "RI-SEN",
+   "dem_margin": 37.1,
+   "reporting": 93.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "SD-SEN",
+   "dem_margin": -28.4,
+   "reporting": 28.4
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "TN-SEN",
+   "dem_margin": -11.3,
+   "reporting": 85.2
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "AR-SEN",
+   "dem_margin": -12.3,
+   "reporting": 84.1
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "CO-SEN",
+   "dem_margin": 26.8,
+   "reporting": 68
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "NM-SEN",
+   "dem_margin": 23.8,
+   "reporting": 41.9
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WY-SEN",
+   "dem_margin": -25,
+   "reporting": 24.3
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "MT-SEN",
+   "dem_margin": -39,
+   "reporting": 13.2
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-SD17",
+   "dem_margin": 10.6,
+   "reporting": 62.9
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-SD31",
+   "dem_margin": 15.9,
+   "reporting": 76.3
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-SD25",
+   "dem_margin": -0.4,
+   "reporting": 53
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-AD92",
+   "dem_margin": -6.3,
+   "reporting": 22.6
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-AD94",
+   "dem_margin": 13.9,
+   "reporting": 93.7
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-AD91",
+   "dem_margin": 17.4,
+   "reporting": 89.4
+  },
+  {
+   "at": "2026-11-04T03:55:57Z",
+   "id": "WI-AG",
+   "dem_margin": 8.6,
+   "reporting": 72
   }
  ]
 }
