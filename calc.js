@@ -143,9 +143,11 @@
         : dNow >= maj ? 'Democrats ahead'
         : rNow >= maj ? 'Republicans ahead'
         : 'Too close';
-      const detail = any
+      const counts = any
         ? `Democrats at ${dNow} of the ${maj} needed: ${safeD} safe, ${won('D')} won, ${lead('D')} leading`
         : `Democrats need ${maj - safeD} of the ${seats.length} battleground seats`;
+      const party = c.control_called === 'D' ? 'Democratic' : c.control_called === 'R' ? 'Republican' : '';
+      const detail = party && c.control_called_by ? `${party} control reported by ${c.control_called_by}. ${counts}` : counts;
       parts.push({ part, name, status: st, detail, needD: maj - safeD, battlegrounds: seats.length, dBattle: won('D') + lead('D') });
     });
     const sts = parts.map((d) => d.status);
